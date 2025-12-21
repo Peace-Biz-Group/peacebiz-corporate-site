@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "public/led-pricing",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
