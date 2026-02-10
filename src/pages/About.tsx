@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Target, Users, Zap, Heart, MapPin, Calendar, Building } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { MaskTextReveal } from '../components/ui/MaskTextReveal';
 import { ParallaxImage } from '../components/ui/ParallaxImage';
 
