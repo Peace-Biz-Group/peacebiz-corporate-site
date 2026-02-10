@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { withSiteBase } from '../../utils/siteBase';
 
 export const Preloader = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +30,7 @@ export const Preloader = () => {
                             transition={{ duration: 2, ease: "easeInOut" }}
                             className="mb-8"
                         >
-                            <img src={withSiteBase('/logo.png')} alt="Peace Biz" className="w-24 md:w-32 invert brightness-0 invert" />
+                            <img src="logo.png" alt="Peace Biz" className="w-24 md:w-32 invert brightness-0 invert" />
                         </motion.div>
 
                         <div className="h-[1px] w-32 bg-white/10 rounded-full overflow-hidden">
