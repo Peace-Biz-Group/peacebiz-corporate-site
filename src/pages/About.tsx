@@ -159,9 +159,9 @@ const About: React.FC = () => {
           {/* Right: 50% Offices */}
           <div className="md:w-1/2 space-y-24">
             {[
-              { name: '東京本社', jp: 'Tokyo Head Office', address: '東京都豊島区上池袋1-10-8 エデン上池袋ビル5F', phone: '03-3917-3587', img: '/tokyo-hq.png' },
-              { name: '仙台支社', jp: 'Sendai Branch', address: '宮城県仙台市青葉区国分町1-4-9', phone: '022-722-1385', img: '/sendai-branch.png' },
-              { name: '福岡支社', jp: 'Fukuoka Branch', address: '福岡県福岡市博多区古門戸1-10 NTF博多ビル7F', phone: '092-233-5888', img: '/fukuoka-branch.png' }
+              { name: '東京本社', jp: 'Tokyo Head Office', address: '東京都豊島区上池袋1-10-8 エデン上池袋ビル5F', phone: '03-3917-3587', img: `${process.env.PUBLIC_URL || ''}/tokyo-hq.png` },
+              { name: '仙台支社', jp: 'Sendai Branch', address: '宮城県仙台市青葉区国分町1-4-9', phone: '022-722-1385', img: `${process.env.PUBLIC_URL || ''}/sendai-branch.png` },
+              { name: '福岡支社', jp: 'Fukuoka Branch', address: '福岡県福岡市博多区古門戸1-10 NTF博多ビル7F', phone: '092-233-5888', img: `${process.env.PUBLIC_URL || ''}/fukuoka-branch.png` }
             ].map((office, i) => (
               <div key={i} className="group cursor-pointer">
                 <div className="overflow-hidden mb-6 rounded-sm">

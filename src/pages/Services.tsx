@@ -28,7 +28,7 @@ const Services: React.FC = () => {
       items: ['業務用空調', '厨房機器', '太陽光発電システム', '蓄電池', '新電力'],
       icon: Leaf,
       color: 'text-brand-green',
-      img: '/ecosolution.jpg', // Solar Image
+      img: `${process.env.PUBLIC_URL || ''}/ecosolution.jpg`, // Solar Image
       path: '/services/eco'
     },
     {
