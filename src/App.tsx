@@ -6,9 +6,9 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
-import PrimeSign from './pages/services/PrimeSign';
-import Eco from './pages/services/Eco';
-import Office from './pages/services/Office';
+import ITSolution from './pages/services/ITSolution';
+import EcoSolution from './pages/services/EcoSolution';
+import OfficeSolution from './pages/services/OfficeSolution';
 import Works from './pages/Works';
 import Contact from './pages/Contact';
 import Recruit from './pages/Recruit';
@@ -48,9 +48,9 @@ const App: React.FC = () => {
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
               <Route path="/about" element={<div className="pt-24"><PageTransition><About /></PageTransition></div>} />
               <Route path="/services" element={<div className="pt-24"><PageTransition><Services /></PageTransition></div>} />
-              <Route path="/services/primesign" element={<div className="pt-24"><PageTransition><PrimeSign /></PageTransition></div>} />
-              <Route path="/services/eco" element={<div className="pt-24"><PageTransition><Eco /></PageTransition></div>} />
-              <Route path="/services/office" element={<div className="pt-24"><PageTransition><Office /></PageTransition></div>} />
+              <Route path="/services/it-solution" element={<div className="pt-24"><PageTransition><ITSolution /></PageTransition></div>} />
+              <Route path="/services/eco-solution" element={<div className="pt-24"><PageTransition><EcoSolution /></PageTransition></div>} />
+              <Route path="/services/office-solution" element={<div className="pt-24"><PageTransition><OfficeSolution /></PageTransition></div>} />
               <Route path="/works" element={<div className="pt-24"><PageTransition><Works /></PageTransition></div>} />
               <Route path="/contact" element={<div className="pt-24"><PageTransition><Contact /></PageTransition></div>} />
               <Route path="/recruit" element={<div className="pt-24"><PageTransition><Recruit /></PageTransition></div>} />

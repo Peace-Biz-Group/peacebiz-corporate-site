@@ -18,7 +18,7 @@ const Services: React.FC = () => {
       icon: Monitor,
       color: 'text-brand-blue',
       img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
-      path: '/services/primesign'
+      path: '/services/it-solution'
     },
     {
       id: 'eco',
@@ -29,7 +29,7 @@ const Services: React.FC = () => {
       icon: Leaf,
       color: 'text-brand-green',
       img: `${process.env.PUBLIC_URL || ''}/ecosolution.jpg`, // Solar Image
-      path: '/services/eco'
+      path: '/services/eco-solution'
     },
     {
       id: 'office',
@@ -40,7 +40,7 @@ const Services: React.FC = () => {
       icon: Building2,
       color: 'text-brand-orange',
       img: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop',
-      path: '/services/office'
+      path: '/services/office-solution'
     }
   ];
 

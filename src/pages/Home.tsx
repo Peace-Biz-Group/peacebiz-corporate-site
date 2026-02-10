@@ -24,8 +24,8 @@ const Home: React.FC = () => {
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-black selection:bg-brand-blue selection:text-white dark:selection:bg-brand-blue dark:selection:text-white border-l border-r border-black/5 dark:border-white/5 max-w-[1920px] mx-auto box-border">
 
-      {/* 1. HERO SECTION: Massively Structural */}
-      <section className="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center border-b border-black/10 dark:border-white/10">
+      {/* 1. HERO SECTION (gnmd.com inspired) */}
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col border-b border-black/10 dark:border-white/10">
         {/* Video Background with Parallax Scale */}
         <motion.div
           style={{ scale: heroScale, opacity: heroOpacity }}
@@ -36,96 +36,151 @@ const Home: React.FC = () => {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-[0.35]"
           >
-            {/* Custom Background Video */}
             <source src={`${process.env.PUBLIC_URL || ""}/herosection_background.mp4`} type="video/mp4" />
           </video>
+          {/* Gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
         </motion.div>
 
-        {/* Center Content: Structural Typography */}
-        <div className="relative z-10 w-full px-6 md:px-20 flex flex-col justify-center h-full pb-20 md:pb-0 pointer-events-none">
+        {/* Grid Lines Overlay */}
+        <div className="absolute inset-0 z-[1] pointer-events-none opacity-[0.06]">
+          <div className="absolute left-1/4 top-0 w-px h-full bg-white" />
+          <div className="absolute left-2/4 top-0 w-px h-full bg-white" />
+          <div className="absolute left-3/4 top-0 w-px h-full bg-white" />
+        </div>
 
-          {/* Grid Lines Overlay */}
-          <div className="absolute inset-0 z-0 flex justify-between pointer-events-none opacity-20">
-            <div className="w-px h-full bg-white/20" />
-            <div className="w-px h-full bg-white/20" />
-            <div className="w-px h-full bg-white/20" />
+        {/* Hero Main: Large Company Name (gnmd style) */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-white pointer-events-none pt-20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 2.6, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center"
+          >
+            <h1 className="text-[18vw] md:text-[14vw] lg:text-[12vw] font-black leading-[0.85] tracking-tighter">
+              <MaskTextReveal text="PEACE" delay={2.6} className="block" />
+              <MaskTextReveal text="BIZ" delay={2.8} className="block text-transparent" style={{ WebkitTextStroke: '2px white' }} />
+            </h1>
+          </motion.div>
+        </div>
+
+        {/* Hero Bottom: Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 3.5, duration: 1 }}
+          className="relative z-10 pb-12 text-center"
+        >
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-white/40 text-[10px] font-mono tracking-[0.4em] uppercase">Scroll</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="w-px h-10 bg-gradient-to-b from-white/60 to-transparent"
+            />
           </div>
+        </motion.div>
+      </section>
 
-          <div className="relative z-10 bg-white/5 backdrop-blur-sm border border-white/10 p-12 md:p-20 rounded-3xl">
-            <div className="overflow-hidden">
-              <MaskTextReveal
-                text="INNOVATE"
-                className="text-[10vw] font-black leading-[0.7] tracking-tighter text-white mix-blend-overlay"
-                delay={2.6}
-              />
-            </div>
-            <div className="overflow-hidden">
-              <MaskTextReveal
-                text="FUTURE"
-                className="text-[10vw] font-black leading-[0.7] tracking-tighter text-outline-white text-transparent"
-                delay={2.7}
-                style={{ WebkitTextStroke: "2px white" }}
-              />
-            </div>
+      {/* 1.5. OUR MISSION SECTION (gnmd.com inspired) */}
+      <section className="relative bg-white dark:bg-black border-b border-black/10 dark:border-white/10">
+        <div className="container mx-auto px-6 md:px-20 max-w-[1920px] py-32 md:py-44">
 
-            {/* Japanese Slogan Structure */}
-            <div className="mt-8 flex flex-col items-start gap-6">
-              <div className="flex items-center gap-4">
-                <div className="h-px w-20 bg-black/50 dark:bg-white/50" />
-                <p className="text-black dark:text-white text-3xl tracking-[0.3em] font-medium mix-blend-screen">
-                  <MaskTextReveal text="未来を創り、笑顔をつなぐ。" delay={3} />
-                </p>
+          {/* Section label */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-16 md:mb-24"
+          >
+            <h2 className="text-xs font-bold tracking-[0.3em] text-brand-blue uppercase mb-6">Our Mission</h2>
+            <p className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.15] tracking-tight max-w-4xl">
+              <MaskTextReveal text="未来を創り、" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-brand-green to-brand-orange">
+                <MaskTextReveal text="笑顔をつなぐ。" delay={0.15} />
+              </span>
+            </p>
+          </motion.div>
+
+          {/* Mission description (gnmd style paragraphs) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-7 text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-[1.9] font-medium space-y-8"
+            >
+              <p>
+                店舗やオフィスの現場で、人が直面する課題はいつも具体的です。
+                空間をどう演出するか、コストをどう最適化するか、働く環境をどう整えるか。
+              </p>
+              <p>
+                私たちピース・ビズは、IT・エネルギー・オフィス環境の3つの領域を横断しながら、
+                そこで働く「人」を中心に、事業にとって最適な形を組み立ててきました。
+                一つの答えに縛られず、選び抜いた手段を、最後までやり切る。
+                それが私たちの強みです。
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-5 md:col-start-8"
+            >
+              <div className="border-t border-black/10 dark:border-white/10 pt-8 space-y-6">
+                <div>
+                  <span className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2">Founded</span>
+                  <span className="text-2xl font-black">2008</span>
+                </div>
+                <div>
+                  <span className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2">Locations</span>
+                  <span className="text-2xl font-black">Tokyo / Sendai / Fukuoka</span>
+                </div>
+                <div>
+                  <span className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2">Core Business</span>
+                  <span className="text-lg font-bold text-gray-600 dark:text-gray-300">IT Solution / Eco Solution / Office Solution</span>
+                </div>
               </div>
-
-              {/* EST Text Moved Here */}
-              <div className="text-xs text-black/60 dark:text-white/60 tracking-[0.3em] font-mono pl-24">
-                <MaskTextReveal text="EST. 2008 / TOKYO - SENDAI - FUKUOKA" delay={3.2} />
-              </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
 
-      {/* 2. ABOUT: Split Structural Layout */}
-
-      {/* 2. ABOUT: Refactored (No Image, Expanded Text) */}
+      {/* 2. ABOUT (gnmd "About Us" style - compact) */}
       <section className="relative border-b border-black/10 dark:border-white/10 bg-gray-50 dark:bg-zinc-900/50">
         <div className="container mx-auto px-6 md:px-20 py-32 flex flex-col md:flex-row gap-20 items-start">
           {/* Left: Headers */}
           <div className="md:w-1/3 sticky top-32">
             <h2 className="text-xs font-bold tracking-[0.3em] mb-6 text-brand-blue uppercase">About Us</h2>
             <h3 className="text-5xl md:text-6xl font-black mb-8 leading-[1.1] tracking-tight">
-              <MaskTextReveal text="ピース・ビズについて" />
+              <MaskTextReveal text="「最適」を、" />
+              <MaskTextReveal text="デザインする。" delay={0.15} />
             </h3>
             <Link to="/about">
               <MagneticButton>
                 <Button variant="light" className="group text-lg font-bold tracking-widest px-0 hover:text-brand-orange">
-                  VIEW MISSION <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
+                  View more <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
                 </Button>
               </MagneticButton>
             </Link>
           </div>
 
-          {/* Right: Expanded Description (Moved from Left) */}
+          {/* Right: Description */}
           <div className="md:w-2/3">
-            <div className="bg-white/80 dark:bg-black/60 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/20 shadow-sm space-y-12 text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
+            <div className="space-y-8 text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-[1.9] font-medium">
               <p>
-                <strong className="text-2xl text-black dark:text-white block mb-4">「最適」を、デザインする。</strong>
-                <b>私たちピース・ビズは、<br />店舗や企業の現場から、事業の基盤づくりを支えるソリューションパートナーです。</b><br />
-                <br />私たちは店舗やオフィスの現場に向き合い、<br />空間・設備・デジタル環境を横断しながら、<br />その事業にとって最適な形を組み立ててきました。
+                私たちピース・ビズは、店舗や企業の現場から、事業の基盤づくりを支えるソリューションパートナーです。
+                空間・設備・デジタル環境を横断しながら、その事業にとって最適な形を組み立ててきました。
               </p>
               <p>
-                2008年の設立以来、東京・仙台・福岡を拠点に、<br />
-                空間演出、コスト改善、業務環境の整備に向き合っています。<br />
-                一つの答えに縛られず、選び抜いた手段を、最後までやり切る。<br />
-                それが私たちの強みです。<br />
-              </p>
-              <p>
-                関わるすべての人にとって価値ある選択を重ね、<br />
-                未来を創り、笑顔をつないでいく。<br />
+                関わるすべての人にとって価値ある選択を重ね、未来を創り、笑顔をつないでいく。
                 ピース・ビズは、現場に根ざした解決力で歩み続けます。
               </p>
             </div>
