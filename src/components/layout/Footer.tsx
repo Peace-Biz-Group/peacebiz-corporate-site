@@ -1,44 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { withSiteBase } from '../../utils/siteBase';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:info@peace-biz.com', label: 'Email' },
-  ];
 
-  const footerLinks = [
-    { path: '/about', label: 'About' },
-    { path: '/services', label: 'Services' },
-    { path: '/works', label: 'Works' },
-    { path: '/contact', label: 'Contact' },
-    { path: '/recruit', label: 'Recruit' },
-  ];
 
-  const offices = [
-    {
-      name: '東京本社',
-      address: '東京都豊島区上池袋1-10-8 エデン上池袋ビル5F',
-      phone: '03-3917-3587',
-    },
-    {
-      name: '福岡支社',
-      address: '福岡県福岡市博多区古門戸1-10 NTF博多ビル7F',
-      phone: '092-233-5888',
-    },
-    {
-      name: '仙台支社',
-      address: '宮城県仙台市青葉区国分町1-4-9',
-      phone: '022-722-1385',
-    },
-  ];
 
   return (
     <footer className="bg-white dark:bg-black border-t border-black/10 dark:border-white/10 pt-20 pb-10">
@@ -78,7 +47,7 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center gap-4 mb-8">
               {/* Logo */}
-              <img src="/logo.png" alt="Peace Biz Logo" className="h-10 md:h-14 w-auto object-contain" />
+              <img src={withSiteBase('/logo.png')} alt="Peace Biz Logo" className="h-10 md:h-14 w-auto object-contain" />
               <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-black dark:text-white">
                 Peace Biz Inc.
               </h2>
@@ -102,9 +71,9 @@ const Footer: React.FC = () => {
           <div className="col-span-1">
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-8">Social</h4>
             <ul className="space-y-4 font-bold text-lg">
-              <li><a href="#" className="hover:text-brand-orange transition-colors">Facebook</a></li>
-              <li><a href="#" className="hover:text-brand-orange transition-colors">X (Twitter)</a></li>
-              <li><a href="#" className="hover:text-brand-orange transition-colors">Instagram</a></li>
+              <li><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" className="hover:text-brand-orange transition-colors">Facebook</a></li>
+              <li><a href="https://x.com/" target="_blank" rel="noreferrer" className="hover:text-brand-orange transition-colors">X (Twitter)</a></li>
+              <li><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="hover:text-brand-orange transition-colors">Instagram</a></li>
             </ul>
           </div>
         </div>

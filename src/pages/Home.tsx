@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Button } from "@nextui-org/react";
@@ -7,6 +7,7 @@ import { MaskTextReveal } from '../components/ui/MaskTextReveal';
 import { ParallaxImage } from '../components/ui/ParallaxImage';
 import { MagneticButton } from '../components/ui/MagneticButton';
 import { ArrowRight, Monitor, Leaf, Building2, X } from 'lucide-react';
+import { withSiteBase } from '../utils/siteBase';
 
 const Home: React.FC = () => {
   const containerRef = useRef(null);
@@ -39,7 +40,7 @@ const Home: React.FC = () => {
             className="w-full h-full object-cover"
           >
             {/* Custom Background Video */}
-            <source src="/herosection_background.mp4" type="video/mp4" />
+            <source src={withSiteBase('/herosection_background.mp4')} type="video/mp4" />
           </video>
         </motion.div>
 

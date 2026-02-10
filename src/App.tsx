@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import Recruit from './pages/Recruit';
 import SparklesDemo from './pages/SparklesDemo';
 import './App.css';
+import { getSiteBasePath, withSiteBase } from './utils/siteBase';
 
 import { SmoothScroll } from './components/ui/SmoothScroll';
 import { NoiseOverlay } from './components/ui/NoiseOverlay';
@@ -25,8 +26,10 @@ import ScrollToTop from './components/utils/ScrollToTop';
 import { GridBackground } from './components/layout/GridBackground';
 
 const App: React.FC = () => {
+  const siteBasePath = getSiteBasePath();
+
   return (
-    <Router>
+    <Router basename={siteBasePath || undefined}>
       <ScrollToTop />
       <Preloader />
       <SmoothScroll />
@@ -36,7 +39,7 @@ const App: React.FC = () => {
         <GridBackground />
         {/* Global Faint Background Logo Watermark */}
         <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.03] dark:opacity-[0.05]">
-          <img src="/logo.png" alt="" className="w-[80vw] max-w-[800px] object-contain" />
+          <img src={withSiteBase('/logo.png')} alt="" className="w-[80vw] max-w-[800px] object-contain" />
         </div>
         <Header />
 

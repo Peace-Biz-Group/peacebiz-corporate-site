@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 interface MagneticButtonProps {
     children: React.ReactNode;
