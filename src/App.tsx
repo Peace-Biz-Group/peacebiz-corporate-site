@@ -26,10 +26,9 @@ import { GridBackground } from './components/layout/GridBackground';
 
 const App: React.FC = () => {
   const publicUrl = process.env.PUBLIC_URL || '';
-  const routerBasename = new URL(publicUrl || '/', window.location.origin).pathname.replace(/\/$/, '') || '/';
 
   return (
-    <Router basename={routerBasename}>
+    <Router>
       <ScrollToTop />
       <Preloader />
       <SmoothScroll />
