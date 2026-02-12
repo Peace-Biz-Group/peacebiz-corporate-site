@@ -62,7 +62,7 @@ const Top: React.FC = () => {
               <div>
                 <TextHoverEffect text="INNOVATE" delay={2.6} />
               </div>
-              <div className="-mt-10 md:-mt-16">
+              <div className="-mt-4 md:-mt-16">
                 <TextHoverEffect text="THE FUTURE" outline delay={3.0} />
               </div>
             </div>
@@ -137,7 +137,7 @@ const Top: React.FC = () => {
           </div>
 
           {/* Two-column: Text left 45% + 3D Marquee right 55% */}
-          <div className="flex flex-col lg:flex-row w-full h-[600px]">
+          <div className="flex flex-col lg:flex-row w-full lg:h-[600px]">
             {/* Left: Description + Button */}
             <div className="lg:w-[45%] flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 py-12 lg:py-16">
               <motion.div
@@ -183,7 +183,7 @@ const Top: React.FC = () => {
             </div>
 
             {/* Right: 3D Marquee */}
-            <div className="lg:w-[55%] h-full bg-gray-950/5 ring-1 ring-neutral-700/10 overflow-hidden">
+            <div className="lg:w-[55%] h-[400px] lg:h-full bg-gray-950/5 ring-1 ring-neutral-700/10 overflow-hidden">
               <ThreeDMarquee
                 images={[
                   ...[...Array(16)].map((_, i) => `${process.env.PUBLIC_URL || ""}/home-image-carousel-${i + 1}.webp`),

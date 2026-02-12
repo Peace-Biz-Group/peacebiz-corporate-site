@@ -149,7 +149,7 @@ const About: React.FC = () => {
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
 
       {/* 1. HERO: Vortex Background */}
-      <section className="relative h-[80vh] overflow-hidden pt-20">
+      <section className="relative min-h-[80vh] overflow-hidden pt-20 pb-16">
         <Vortex
           backgroundColor="transparent"
           particleCount={500}
@@ -166,7 +166,7 @@ const About: React.FC = () => {
               <MaskTextReveal text="ABOUT" className="text-[10vw] md:text-[6rem] font-black leading-[0.8] tracking-tighter opacity-10 md:opacity-100" />
               <MaskTextReveal text="PEACE BIZ" className="text-[10vw] md:text-[6rem] font-black leading-[0.8] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-orange-500" delay={0.1} />
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-8 flex items-baseline justify-center gap-[0.2em]">
+            <h2 className="text-2xl md:text-5xl font-bold leading-tight mb-8 flex items-baseline justify-center gap-[0.15em] whitespace-nowrap">
               <MaskTextReveal text="最適な価値を、" />
               <MaskTextReveal text="最短距離で。" className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-orange-500" delay={0.2} />
             </h2>

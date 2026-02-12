@@ -353,7 +353,7 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Submit */}
-            <div className="pt-8">
+            <div className="pt-8 flex flex-col items-center">
               <MagneticButton>
                 <Button
                   type="submit"
