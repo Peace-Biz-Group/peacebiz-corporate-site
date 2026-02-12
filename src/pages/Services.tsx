@@ -46,7 +46,7 @@ const AnimatedItem = ({
   const inner = (
     <>
       <span className={`w-2.5 h-2.5 rounded-full ${dotColor} flex-shrink-0 group-hover:scale-150 transition-transform duration-300`} />
-      <span className="text-xl md:text-2xl font-bold text-white flex-1 group-hover:translate-x-2 transition-transform duration-300">
+      <span className="text-base md:text-2xl font-bold text-white flex-1 group-hover:translate-x-2 transition-transform duration-300">
         {children}
       </span>
       <ArrowRight className={`w-4 h-4 ${color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
@@ -59,11 +59,11 @@ const AnimatedItem = ({
       className="border-b border-white/15 first:border-t"
     >
       {linkTo ? (
-        <Link to={linkTo} className="group flex items-center gap-5 py-5 cursor-pointer">
+        <Link to={linkTo} className="group flex items-center gap-3 md:gap-5 py-3 md:py-5 cursor-pointer">
           {inner}
         </Link>
       ) : (
-        <div className="group flex items-center gap-5 py-5">
+        <div className="group flex items-center gap-3 md:gap-5 py-3 md:py-5">
           {inner}
         </div>
       )}
@@ -181,28 +181,28 @@ const ServiceSection = ({
         />
 
         {/* ── Content ── */}
-        <div className="relative z-10 h-full flex items-center">
-          <div className="w-full max-w-7xl mx-auto px-6 md:px-20">
-            <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+        <div className="relative z-10 h-full flex items-center pt-14 md:pt-0">
+          <div className="w-full max-w-7xl mx-auto px-5 md:px-20">
+            <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-16">
 
               {/* Left: Title Block */}
               <div className="md:w-2/5 relative">
                 <div
-                  className="absolute -inset-6 md:-inset-8 rounded-2xl z-0"
+                  className="absolute -inset-4 md:-inset-8 rounded-2xl z-0"
                   style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)' }}
                 />
 
                 <div className="relative z-[2]">
                   <motion.span
                     style={{ opacity: labelOpacity, x: labelX }}
-                    className={`text-xs font-mono tracking-[0.3em] uppercase mb-4 block ${service.color}`}
+                    className={`text-xs font-mono tracking-[0.3em] uppercase mb-2 md:mb-4 block ${service.color}`}
                   >
                     0{index + 1} — {service.id.toUpperCase()}
                   </motion.span>
 
                   <motion.h2
                     style={{ opacity: titleOpacity, x: titleX }}
-                    className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-4"
+                    className="text-4xl md:text-7xl font-black tracking-tight leading-[0.95] mb-2 md:mb-4"
                   >
                     <span className={service.color}>{service.titleAccent}</span>
                     <span className="block text-white">{service.titleBase}</span>
@@ -210,12 +210,12 @@ const ServiceSection = ({
 
                   <motion.p
                     style={{ opacity: descOpacity, y: descY }}
-                    className="text-base md:text-lg text-gray-200 leading-relaxed mt-6 max-w-sm"
+                    className="text-sm md:text-lg text-gray-200 leading-relaxed mt-3 md:mt-6 max-w-sm"
                   >
                     {service.desc}
                   </motion.p>
 
-                  <motion.div style={{ opacity: ctaOpacity, y: ctaY }} className="mt-8">
+                  <motion.div style={{ opacity: ctaOpacity, y: ctaY }} className="mt-4 md:mt-8">
                     <Link to={service.path}>
                       <NoiseBackground
                         containerClassName="w-fit p-2 rounded-full"
@@ -233,7 +233,7 @@ const ServiceSection = ({
               {/* Right: Items List */}
               <div className="md:w-3/5 relative">
                 <div
-                  className="absolute -inset-6 md:-inset-8 rounded-2xl z-0"
+                  className="absolute -inset-4 md:-inset-8 rounded-2xl z-0"
                   style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)' }}
                 />
 

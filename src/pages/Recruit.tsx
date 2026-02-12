@@ -19,6 +19,7 @@ const Recruit: React.FC = () => {
       <section className="relative h-screen w-full overflow-hidden">
         <BackgroundGradientAnimation
           containerClassName="absolute inset-0 h-full w-full"
+          interactive={false}
         >
           <div className="absolute z-50 inset-0 flex items-center justify-center px-6 md:px-20 pointer-events-none">
             <div className="max-w-7xl mx-auto w-full">

@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
         {/* 1. CTA Cards (Lenz Style) */}
         {/* 1. CTA Cards (Lenz Style) - Compact Height */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 mb-32">
-          <Link to="/recruit" className="group relative aspect-[21/9] md:aspect-[3/1] bg-gray-50 dark:bg-zinc-900 rounded-3xl overflow-hidden border border-black/5 dark:border-white/5 flex flex-col justify-between p-8 md:p-12 transition-all hover:shadow-2xl">
+          <Link to="/recruit" className="group relative md:aspect-[3/1] bg-gray-50 dark:bg-zinc-900 rounded-3xl overflow-hidden border border-black/5 dark:border-white/5 flex flex-col justify-between p-8 md:p-12 transition-all hover:shadow-2xl">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/0 to-brand-blue/5 group-hover:to-brand-blue/20 transition-all duration-500" />
             <div className="relative z-10">
               <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 group-hover:translate-x-2 transition-transform text-black dark:text-white">RECRUIT</h3>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
           </Link>
-          <Link to="/contact" className="group relative aspect-[21/9] md:aspect-[3/1] bg-gray-50 dark:bg-zinc-900 rounded-3xl overflow-hidden border border-black/5 dark:border-white/5 flex flex-col justify-between p-8 md:p-12 transition-all hover:shadow-2xl">
+          <Link to="/contact" className="group relative md:aspect-[3/1] bg-gray-50 dark:bg-zinc-900 rounded-3xl overflow-hidden border border-black/5 dark:border-white/5 flex flex-col justify-between p-8 md:p-12 transition-all hover:shadow-2xl">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/0 to-brand-orange/5 group-hover:to-brand-orange/20 transition-all duration-500" />
             <div className="relative z-10">
               <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 group-hover:translate-x-2 transition-transform text-black dark:text-white">CONTACT</h3>

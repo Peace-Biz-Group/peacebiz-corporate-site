@@ -167,7 +167,7 @@ const Top: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.45, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8"
+                className="mt-8 flex justify-center"
               >
                 <Link to="/about">
                   <HoverBorderGradient

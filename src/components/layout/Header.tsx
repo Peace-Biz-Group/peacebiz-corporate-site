@@ -96,27 +96,27 @@ const Header: React.FC = () => {
               <div className="absolute left-3/4 top-0 w-px h-full bg-black" />
             </div>
 
-            {/* Top bar in overlay */}
-            <div className="absolute top-0 left-0 right-0 z-20 px-6 md:px-12 lg:px-20 h-20 flex items-center justify-between">
+            {/* Top bar in overlay — matches Navbar px-4 py-2 so the close button lands on the same spot as the menu button */}
+            <div className="absolute top-0 left-0 right-0 z-20 px-4 py-2 flex items-center justify-between">
               <Link
                 to="/"
                 onClick={() => setIsOpen(false)}
-                className="font-black text-xl md:text-2xl tracking-tighter text-black hover:opacity-70 transition-opacity"
+                className="font-black text-xl md:text-2xl tracking-tighter text-black hover:opacity-70 transition-opacity px-2 py-1"
               >
                 PEACE BIZ
               </Link>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all group"
+                className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all group"
               >
-                <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+                <X className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
               </button>
             </div>
 
             {/* Menu Content - Mobile: scrollable column / Desktop: center + right */}
 
             {/* Mobile Layout */}
-            <div className="lg:hidden w-full h-full pt-20 overflow-y-auto">
+            <div className="lg:hidden w-full h-full pt-14 overflow-y-auto">
               <div className="px-6 py-8">
                 <nav className="flex flex-col gap-0">
                   {menuItems.map((item, index) => (
@@ -183,9 +183,9 @@ const Header: React.FC = () => {
             </div>
 
             {/* Desktop Layout */}
-            <div className="hidden lg:block relative w-full h-full pt-20">
+            <div className="hidden lg:block relative w-full h-full pt-14">
               {/* Center: Main Navigation */}
-              <div className="absolute inset-0 pt-20 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 pt-14 flex items-center justify-center pointer-events-none">
                 <div className="pointer-events-auto px-16">
                   <nav className="flex flex-col gap-1">
                     {menuItems.map((item, index) => (
@@ -216,7 +216,7 @@ const Header: React.FC = () => {
               </div>
 
               {/* Right: Sub-links & Info */}
-              <div className="absolute right-0 top-20 bottom-0 w-auto flex flex-col justify-between px-12 lg:px-16 py-20 border-l border-black/10">
+              <div className="absolute right-0 top-14 bottom-0 w-auto flex flex-col justify-between px-12 lg:px-16 py-20 border-l border-black/10">
                 {/* Service Sub-links */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
