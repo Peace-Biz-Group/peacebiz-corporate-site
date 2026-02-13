@@ -99,6 +99,11 @@ code {
   * {
     cursor: none !important;
   }
+
+  *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 ::selection {

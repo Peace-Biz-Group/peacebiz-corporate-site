@@ -57,12 +57,28 @@ const Recruit: React.FC = () => {
           </h2>
           <div className="text-lg md:text-xl leading-relaxed text-gray-600 dark:text-gray-300 font-medium space-y-8 max-w-2xl">
             <p>
-              Peace Bizは、単なるビジネスの遂行者ではありません。
-              クライアントのビジネスを加速させ、社会に新しい価値を提供する「変革者」でありたいと考えています。
+              私たちピース・ビズは、単なるビジネスの遂行者ではありません。<br/><br/>
+              クライアントのビジネスを加速させ、<br/>社会に新しい価値を提供する「変革者」でありたいと考えています。
             </p>
             <p>
               求めるのは、指示を待つ人ではなく、自ら考え、行動し、結果を出す人。
               失敗を恐れず、常に挑戦し続ける情熱を持った仲間を募集しています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 2-2. MESSAGE 2: Right-aligned variant */}
+      <section className="pb-40 px-6 container mx-auto">
+        <div className="max-w-5xl mx-auto md:ml-[15%] text-right">
+          <h2 className="text-4xl md:text-7xl font-black leading-tight mb-16">
+            <span className="block mb-2">仕組みで伸ばし、</span>
+            <span className="block mb-2 text-gray-400">現場で磨き、</span>
+            <span className="block">価値で応える。</span>
+          </h2>
+          <div className="text-lg md:text-xl leading-relaxed text-gray-600 dark:text-gray-300 font-medium space-y-8 max-w-2xl ml-auto text-right">
+            <p>
+              評価するのは、年齢や肩書きではなく「前に進めたかどうか」。<br/>自分の意思で動き、学び、成果を積み上げられる人には、<br/>任せる範囲も裁量も広がります。<br/><br/>変化を楽しみ、仲間と一緒に成長したい人を歓迎します。
             </p>
           </div>
         </div>

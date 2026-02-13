@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 interface MagneticButtonProps {
     children: React.ReactNode;
@@ -14,10 +14,19 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     strength = 20
 }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const [isHoverDevice, setIsHoverDevice] = useState(false);
+
+    useEffect(() => {
+        setIsHoverDevice(window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+    }, []);
 
     useEffect(() => {
         const element = ref.current;
         if (!element) return;
+
+        // Skip magnetic effect on touch / non-hover devices
+        const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (!canHover) return;
 
         let x = 0;
         let y = 0;
@@ -38,7 +47,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
                 element.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
             }
 
-            requestAnimationFrame(animate);
+            frameId = requestAnimationFrame(animate);
         };
 
         frameId = requestAnimationFrame(animate);
@@ -48,7 +57,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
 
-            x = (e.clientX - centerX) * 0.5; // Apply strength manually
+            x = (e.clientX - centerX) * 0.5;
             y = (e.clientY - centerY) * 0.5;
         };
 
@@ -70,7 +79,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     return (
         <div
             ref={ref}
-            className={`inline-block cursor-none will-change-transform ${className}`}
+            className={`inline-block ${isHoverDevice ? 'cursor-none will-change-transform' : ''} ${className}`}
             onClick={onClick}
         >
             {children}

@@ -164,11 +164,11 @@ const About: React.FC = () => {
           <div className="text-center">
             <div className="overflow-hidden mb-6 flex items-baseline justify-center gap-[0.3em]">
               <MaskTextReveal text="ABOUT" className="text-[10vw] md:text-[6rem] font-black leading-[0.8] tracking-tighter opacity-10 md:opacity-100" />
-              <MaskTextReveal text="PEACE BIZ" className="text-[10vw] md:text-[6rem] font-black leading-[0.8] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-orange-500" delay={0.1} />
+              <MaskTextReveal text="PEACE BIZ" className="text-[10vw] md:text-[6rem] font-black leading-[0.8] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-orange-500" />
             </div>
             <h2 className="text-2xl md:text-5xl font-bold leading-tight mb-8 flex items-baseline justify-center gap-[0.15em] whitespace-nowrap">
               <MaskTextReveal text="最適な価値を、" />
-              <MaskTextReveal text="最短距離で。" className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-orange-500" delay={0.2} />
+              <MaskTextReveal text="最短距離で。" className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-orange-500" />
             </h2>
             <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
               私たちピース・ビズは、2008年に設立し、<br/>

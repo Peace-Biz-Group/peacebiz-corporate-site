@@ -147,18 +147,18 @@ const Top: React.FC = () => {
                 transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
                 <p className="text-xl md:text-2xl text-neutral-500 leading-relaxed font-semibold mb-4">
-                  私たちピース・ビズは、法人・店舗の成長を支える環境を、IT・ECO・OFFICEの3軸から再設計するソリューション企業です。
+                  私たちピース・ビズは<br />法人・店舗の成長を支える環境を<br />IT・ECO・OFFICEの3軸から<br />再設計するソリューション企業です。<br /><br />
                 </p>
                 <p className="text-base md:text-lg text-neutral-400 leading-relaxed font-medium">
-                  Prime SignやLEDサイネージ、アプリケーション、ロゴ・アニメーション制作によるIT領域。
+                  Prime SignやLEDサイネージ、アプリケーション、コンテンツ制作によるIT領域。
                   <br />
-                  エネルギー設備・太陽光によるECO領域。
+                  エネルギー設備・業務用空調機器・太陽光発電システムによるECO領域。
                   <br />
                   OA機器・モバイル・通信インフラを統合するOFFICE領域。
-                  <br />
+                  <br /><br />
                   それぞれを個別最適に終わらせない。
                   <br />
-                  空間と情報、エネルギーをひとつの戦略として組み上げ、未来を創り、笑顔を繋ぎます。
+                  空間と情報、エネルギーをひとつの戦略として組み上げ、<br />未来を創り、笑顔を繋ぎます。
                 </p>
               </motion.div>
 
@@ -198,13 +198,19 @@ const Top: React.FC = () => {
       {/* 3. BUSINESS DOMAINS: Architectural & Sticky Layout */}
       <section className="border-b border-black/10 dark:border-white/10 bg-white dark:bg-black content-auto relative">
 
-        {/* Mobile-only: Sticky Header at top */}
-        <div className="md:hidden sticky top-16 z-30 bg-white dark:bg-black border-b border-black/5 dark:border-white/5">
-          <div className="px-6 pt-12 pb-5">
+        {/* Mobile-only: Sticky title + flowing sub-content */}
+        <div className="md:hidden">
+          <div className="sticky top-16 z-30 bg-white dark:bg-black border-b border-black/5 dark:border-white/5">
+            <div className="px-6 pt-8 pb-4">
+              <Link to="/services" className="block hover:opacity-70 transition-opacity">
+                <h2 className="text-5xl font-black tracking-tighter leading-none">
+                  DOMAINS
+                </h2>
+              </Link>
+            </div>
+          </div>
+          <div className="px-6 pt-4 pb-5">
             <Link to="/services" className="block hover:opacity-70 transition-opacity">
-              <h2 className="text-5xl font-black tracking-tighter leading-none mb-2">
-                DOMAINS
-              </h2>
               <span className="text-2xl font-black tracking-tighter leading-none block text-gray-300 dark:text-gray-600">
                 事業
               </span>
@@ -218,7 +224,7 @@ const Top: React.FC = () => {
         <div className="container mx-auto px-6 md:px-20 py-16 md:py-32 md:flex md:flex-row md:gap-20 md:items-start">
 
           {/* Desktop-only: Sticky Sidebar */}
-          <div className="hidden md:block md:w-1/3 sticky top-32 z-10">
+          <div className="hidden md:block md:w-1/3 sticky top-[calc(50vh-120px)] z-10">
             <Link to="/services" className="block hover:opacity-70 transition-opacity">
               <h2 className="text-8xl font-black tracking-tighter leading-none mb-2">
                 DOMAINS

@@ -25,6 +25,7 @@ const News = lazy(() => import('./pages/News'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Recruit = lazy(() => import('./pages/Recruit'));
 const Privacy = lazy(() => import('./pages/Privacy'));
+const SitePolicy = lazy(() => import('./pages/SitePolicy'));
 const SparklesDemo = lazy(() => import('./pages/SparklesDemo'));
 
 const normalizeBasename = (publicUrl: string): string => {
@@ -73,15 +74,17 @@ const App: React.FC = () => {
               <Routes>
                 <Route path="/" element={routeWithTransition(<Top />, false)} />
                 <Route path="/about" element={routeWithTransition(<About />)} />
+                <Route path="/company" element={routeWithTransition(<About />)} />
                 <Route path="/services" element={routeWithTransition(<Services />)} />
-                <Route path="/services/it-solution" element={routeWithTransition(<ITSolution />)} />
-                <Route path="/services/eco-solution" element={routeWithTransition(<EcoSolution />)} />
-                <Route path="/services/office-solution" element={routeWithTransition(<OfficeSolution />)} />
+                <Route path="/services/it-solution" element={routeWithTransition(<ITSolution />, false)} />
+                <Route path="/services/eco-solution" element={routeWithTransition(<EcoSolution />, false)} />
+                <Route path="/services/office-solution" element={routeWithTransition(<OfficeSolution />, false)} />
                 <Route path="/works" element={routeWithTransition(<Works />)} />
                 <Route path="/news" element={routeWithTransition(<News />)} />
                 <Route path="/contact" element={routeWithTransition(<Contact />)} />
                 <Route path="/recruit" element={routeWithTransition(<Recruit />, false)} />
                 <Route path="/privacy" element={routeWithTransition(<Privacy />)} />
+                <Route path="/terms" element={routeWithTransition(<SitePolicy />)} />
                 <Route path="/sparkles-demo" element={routeWithTransition(<SparklesDemo />, false)} />
               </Routes>
             </AnimatePresence>
