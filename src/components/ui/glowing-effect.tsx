@@ -33,6 +33,7 @@ const GlowingEffect = memo(
     const containerRef = useRef<HTMLDivElement>(null);
     const lastPosition = useRef({ x: 0, y: 0 });
     const animationFrameRef = useRef<number>(0);
+    const angleAnimationRef = useRef<ReturnType<typeof animate> | null>(null);
 
     const handleMove = useCallback(
       (e?: MouseEvent | { x: number; y: number }) => {
@@ -86,7 +87,8 @@ const GlowingEffect = memo(
           const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
           const newAngle = currentAngle + angleDiff;
 
-          animate(currentAngle, newAngle, {
+          angleAnimationRef.current?.stop();
+          angleAnimationRef.current = animate(currentAngle, newAngle, {
             duration: movementDuration,
             ease: [0.16, 1, 0.3, 1],
             onUpdate: (value) => {
@@ -100,6 +102,8 @@ const GlowingEffect = memo(
 
     useEffect(() => {
       if (disabled) return;
+      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (!canHover) return;
 
       const handleScroll = () => handleMove();
       const handlePointerMove = (e: PointerEvent) => handleMove(e);
@@ -113,6 +117,8 @@ const GlowingEffect = memo(
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
         }
+        angleAnimationRef.current?.stop();
+        angleAnimationRef.current = null;
         window.removeEventListener("scroll", handleScroll);
         document.body.removeEventListener("pointermove", handlePointerMove);
       };

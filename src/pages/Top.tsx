@@ -241,7 +241,7 @@ const Top: React.FC = () => {
           <div className="md:w-2/3 flex flex-col gap-20 md:gap-32">
             {[
               { title: "IT Solution", sub: "DX / Signage", desc: "デジタル技術で空間価値を最大化。", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop", color: "text-brand-blue", bg: "bg-brand-blue", hoverBg: "group-hover:bg-brand-blue", hoverText: "group-hover:text-brand-blue", link: "/services/it-solution" },
-              { title: "Eco Solution", sub: "Energy / LED", desc: "コスト削減と環境貢献の両立。", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2070&auto=format&fit=crop", color: "text-brand-green", bg: "bg-brand-green", hoverBg: "group-hover:bg-brand-green", hoverText: "group-hover:text-brand-green", link: "/services/eco-solution" },
+              { title: "Eco Solution", sub: "Energy / LED", desc: "コスト削減と環境貢献の両立。", img: `${process.env.PUBLIC_URL || ''}/ecosolution.webp`, color: "text-brand-green", bg: "bg-brand-green", hoverBg: "group-hover:bg-brand-green", hoverText: "group-hover:text-brand-green", link: "/services/eco-solution" },
               { title: "Office Solution", sub: "Space Design", desc: "働く人が輝く環境を構築。", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop", color: "text-brand-orange", bg: "bg-brand-orange", hoverBg: "group-hover:bg-brand-orange", hoverText: "group-hover:text-brand-orange", link: "/services/office-solution" }
             ].map((item, idx) => (
               <Link to={item.link} key={idx} className="group block relative border-b border-black/10 dark:border-white/10 pb-12 md:pb-20 last:border-0 hover:opacity-100">

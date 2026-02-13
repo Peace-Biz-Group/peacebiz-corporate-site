@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
+const PRELOADER_NOISE_URI = "data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
+
 export const Preloader = () => {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -52,14 +54,16 @@ export const Preloader = () => {
                         LOADING
                     </motion.p>
 
-                    {/* Background Gradient/Noise for texture */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none" />
-                    <svg className="absolute inset-0 opacity-[0.1] pointer-events-none">
-                        <filter id="noise">
-                            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-                        </filter>
-                        <rect width="100%" height="100%" filter="url(#noise)" />
-                    </svg>
+                    {/* Background overlay */}
+                    <div className="absolute inset-0 bg-black/80 pointer-events-none" />
+                    <div
+                        className="absolute inset-0 opacity-[0.1] pointer-events-none"
+                        style={{
+                            backgroundImage: `url("${PRELOADER_NOISE_URI}")`,
+                            backgroundRepeat: 'repeat',
+                            backgroundSize: '128px 128px',
+                        }}
+                    />
                 </motion.div>
             )}
         </AnimatePresence>

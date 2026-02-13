@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue } from 'motion/react';
 
 export const CustomCursor = () => {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const [isHovering, setIsHovering] = useState(false);
+    const [isCursorReady, setIsCursorReady] = useState(false);
+    const hoverStateRef = useRef(false);
 
     useEffect(() => {
         const canUseCustomCursor = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 768px)').matches;
@@ -13,33 +15,41 @@ export const CustomCursor = () => {
         }
 
         const updateMousePosition = (e: MouseEvent) => {
+            if (!isCursorReady) {
+                setIsCursorReady(true);
+            }
             mouseX.set(e.clientX);
             mouseY.set(e.clientY);
         };
 
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            if (
+            const nextIsHovering = !!(
                 target.tagName === 'BUTTON' ||
                 target.tagName === 'A' ||
                 target.closest('button') ||
                 target.closest('a') ||
                 target.classList.contains('cursor-pointer')
-            ) {
-                setIsHovering(true);
-            } else {
-                setIsHovering(false);
+            );
+
+            if (hoverStateRef.current !== nextIsHovering) {
+                hoverStateRef.current = nextIsHovering;
+                setIsHovering(nextIsHovering);
             }
         };
 
-        window.addEventListener('mousemove', updateMousePosition);
-        window.addEventListener('mouseover', handleMouseOver);
+        window.addEventListener('mousemove', updateMousePosition, { passive: true });
+        window.addEventListener('mouseover', handleMouseOver, { passive: true });
 
         return () => {
             window.removeEventListener('mousemove', updateMousePosition);
             window.removeEventListener('mouseover', handleMouseOver);
         };
-    }, [mouseX, mouseY]);
+    }, [isCursorReady, mouseX, mouseY]);
+
+    if (!isCursorReady) {
+        return null;
+    }
 
     return (
         <motion.div
