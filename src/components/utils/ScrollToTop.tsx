@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigationType } from 'react-router-dom';
 
 const STORAGE_KEY = 'pb-scroll-positions';
 
@@ -20,6 +20,7 @@ const parseStoredPositions = () => {
 
 export default function ScrollToTop() {
   const location = useLocation();
+  const navigationType = useNavigationType();
   const routeKey = getRouteKey(location.pathname, location.search);
   const positionsRef = useRef<Record<string, number>>(parseStoredPositions());
 
@@ -51,25 +52,55 @@ export default function ScrollToTop() {
   }, [routeKey]);
 
   useLayoutEffect(() => {
-    if (location.hash) {
-      const targetId = decodeURIComponent(location.hash.replace('#', ''));
-      if (!targetId) return;
+    const scrollToHashTarget = (hash: string) => {
+      const targetId = decodeURIComponent(hash.replace('#', ''));
+      if (!targetId) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        return;
+      }
 
-      requestAnimationFrame(() => {
+      let attemptCount = 0;
+      const maxAttempts = 12;
+      const tryScrollToHash = () => {
         const target = document.getElementById(targetId);
-        if (!target) return;
-        target.scrollIntoView({ block: 'start', behavior: 'auto' });
-      });
+        if (target) {
+          target.scrollIntoView({ block: 'start', behavior: 'auto' });
+          return;
+        }
+
+        attemptCount += 1;
+        if (attemptCount < maxAttempts) {
+          requestAnimationFrame(tryScrollToHash);
+          return;
+        }
+
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      };
+
+      requestAnimationFrame(tryScrollToHash);
+    };
+
+    if (navigationType === 'POP') {
+      const saved = positionsRef.current[routeKey];
+      if (typeof saved === 'number') {
+        window.scrollTo({ top: saved, left: 0, behavior: 'auto' });
+        return;
+      }
+      if (location.hash) {
+        scrollToHashTarget(location.hash);
+        return;
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       return;
     }
 
-    const saved = positionsRef.current[routeKey];
-    if (typeof saved === 'number') {
-      window.scrollTo({ top: saved, left: 0, behavior: 'auto' });
+    if (location.hash) {
+      scrollToHashTarget(location.hash);
       return;
     }
 
-  }, [location.hash, routeKey]);
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.hash, navigationType, routeKey]);
 
   return null;
 }

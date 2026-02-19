@@ -1,5 +1,7 @@
 interface Env {
-  WEB3FORMS_ACCESS_KEY: string;
+  WEB3FORMS_ACCESS_KEY?: string;
+  REACT_APP_WEB3FORMS_ACCESS_KEY?: string;
+  WEB3_FORMS_ACCESS_KEY?: string;
   ALLOWED_ORIGINS?: string;
 }
 
@@ -54,6 +56,15 @@ const parseAllowedOrigins = (raw: string | undefined) =>
     .split(',')
     .map((item) => normalizeAllowedEntry(item))
     .filter(Boolean);
+
+const resolveWeb3FormsAccessKey = (env: Env) =>
+  [
+    env.WEB3FORMS_ACCESS_KEY,
+    env.REACT_APP_WEB3FORMS_ACCESS_KEY,
+    env.WEB3_FORMS_ACCESS_KEY,
+  ]
+    .map((value) => (typeof value === 'string' ? value.trim() : ''))
+    .find((value) => value.length > 0) || '';
 
 const buildCandidateOrigins = (origin: string) => {
   const normalized = normalizeOrigin(origin);
@@ -112,9 +123,32 @@ const json = (body: Record<string, unknown>, status: number, headers: Record<str
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    const { pathname } = new URL(request.url);
     const allowlist = parseAllowedOrigins(env.ALLOWED_ORIGINS);
     const origin = request.headers.get('Origin');
     const allowedOrigin = origin && isAllowedOrigin(origin, allowlist) ? normalizeOrigin(origin) : null;
+    const web3FormsAccessKey = resolveWeb3FormsAccessKey(env);
+
+    if (request.method === 'GET' && pathname === '/health') {
+      return json(
+        {
+          ok: Boolean(web3FormsAccessKey),
+          configured: {
+            accessKey: Boolean(web3FormsAccessKey),
+            allowlistCount: allowlist.length,
+          },
+          endpoint: 'contact-proxy',
+        },
+        web3FormsAccessKey ? 200 : 503,
+        {
+          ...buildCommonHeaders(),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          Vary: 'Origin',
+        }
+      );
+    }
 
     if (request.method === 'OPTIONS') {
       if (!allowedOrigin) {
@@ -148,7 +182,7 @@ export default {
       );
     }
 
-    if (!env.WEB3FORMS_ACCESS_KEY) {
+    if (!web3FormsAccessKey) {
       return json(
         { success: false, message: 'Server Misconfigured' },
         500,
@@ -215,7 +249,7 @@ export default {
     }
 
     const submitData = new FormData();
-    submitData.append('access_key', env.WEB3FORMS_ACCESS_KEY);
+    submitData.append('access_key', web3FormsAccessKey);
     submitData.append('subject', `【Peace Biz】お問い合わせ: ${safeInquiryType}`);
     submitData.append('name', safeName);
     submitData.append('email', safeEmail);

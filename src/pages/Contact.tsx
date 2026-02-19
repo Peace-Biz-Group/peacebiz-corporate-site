@@ -6,15 +6,25 @@ import { MaskTextReveal } from '../components/ui/MaskTextReveal';
 
 const CONTACT_API_ENDPOINT = (process.env.REACT_APP_CONTACT_API_URL || '').trim();
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
-const WEB3FORMS_ACCESS_KEY = (process.env.REACT_APP_WEB3FORMS_ACCESS_KEY || '').trim();
+// Fallback for environments where build-time vars are missing.
+const LEGACY_WEB3FORMS_ACCESS_KEY = '427cb386-92ed-42de-8e05-44b7e7ee7ac0';
+const WEB3FORMS_ACCESS_KEY = (process.env.REACT_APP_WEB3FORMS_ACCESS_KEY || LEGACY_WEB3FORMS_ACCESS_KEY).trim();
 const MIN_SUBMIT_DELAY_MS = 1500;
 const SUBMIT_COOLDOWN_MS = 10000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+type SubmitMode = 'proxy' | 'direct';
+type SubmitResult = {
+  ok: boolean;
+  status: number;
+  message: string;
+  mode: SubmitMode;
+};
+
 const sanitizeField = (value: string, maxLength: number) =>
   value.replace(/\r\n?/g, '\n').trim().slice(0, maxLength);
 
-const getSubmitErrorMessage = (status: number, message: string, mode: 'proxy' | 'direct' | 'none') => {
+const getSubmitErrorMessage = (status: number, message: string, mode: SubmitMode) => {
   if (mode === 'proxy') {
     if (status === 403 || message === 'Forbidden') {
       return 'フォーム送信ドメイン設定エラーです。運営側で許可ドメイン設定を確認してください。';
@@ -27,11 +37,51 @@ const getSubmitErrorMessage = (status: number, message: string, mode: 'proxy' | 
     }
   }
 
+  if (mode === 'direct') {
+    if (status === 0 || message === 'Network Error') {
+      return '送信サービスとの通信に失敗しました。時間をおいて再度お試しください。';
+    }
+    if (message === 'Invalid access key') {
+      return 'フォーム送信キーの設定エラーです。運営側で設定を確認してください。';
+    }
+    if (message === 'This method is not allowed. Use our API in client side or contact support with server IP address (Pro plan is required)') {
+      return '送信サービス設定エラーです。運営側で送信方式を確認してください。';
+    }
+  }
+
   if (message === 'Invalid email') {
     return 'メールアドレスの形式が正しくありません。';
   }
 
   return '送信に失敗しました。もう一度お試しください。';
+};
+
+const buildMailtoHref = (payload: {
+  inquiryLabel: string;
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  services: string[];
+  message: string;
+}) => {
+  const subject = payload.inquiryLabel
+    ? `【Peace Biz お問い合わせ】${payload.inquiryLabel}`
+    : '【Peace Biz お問い合わせ】';
+
+  const bodyLines = [
+    `お問い合わせ種別: ${payload.inquiryLabel || '未選択'}`,
+    `お名前: ${payload.name || '未入力'}`,
+    `会社名: ${payload.company || '未入力'}`,
+    `メール: ${payload.email || '未入力'}`,
+    `電話番号: ${payload.phone || '未入力'}`,
+    `対象サービス: ${payload.services.length > 0 ? payload.services.join(', ') : '未選択'}`,
+    '',
+    'お問い合わせ内容:',
+    payload.message || '未入力',
+  ];
+
+  return `mailto:contact@peace-biz.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
 };
 
 const Contact: React.FC = () => {
@@ -127,17 +177,6 @@ const Contact: React.FC = () => {
     let timeoutId: number | undefined;
 
     try {
-      const submissionMode = CONTACT_API_ENDPOINT
-        ? 'proxy'
-        : WEB3FORMS_ACCESS_KEY
-          ? 'direct'
-          : 'none';
-
-      if (submissionMode === 'none') {
-        setSubmitError('フォーム設定エラーが発生しています。時間をおいて再度お試しください。');
-        return;
-      }
-
       if (honeypot.trim() !== '') {
         // Silent success for bots.
         setIsSubmitted(true);
@@ -178,68 +217,117 @@ const Contact: React.FC = () => {
         .filter((key) => allowedServiceKeys.has(key))
         .slice(0, 20);
 
+      const payload = {
+        name: safeName,
+        company: safeCompany,
+        email: safeEmail,
+        phone: safePhone,
+        inquiryType: inquiryLabel,
+        services: safeServices,
+        message: safeMessage,
+        honeypot: '',
+      };
+
       const controller = new AbortController();
       timeoutId = window.setTimeout(() => controller.abort(), 15000);
       lastSubmittedAtRef.current = now;
-      let response: Response;
 
-      if (submissionMode === 'proxy') {
-        const payload = {
-          name: safeName,
-          company: safeCompany,
-          email: safeEmail,
-          phone: safePhone,
-          inquiryType: inquiryLabel,
-          services: safeServices,
-          message: safeMessage,
-          honeypot: '',
+      const toSubmitResult = async (response: Response, mode: SubmitMode): Promise<SubmitResult> => {
+        const data = await response.json().catch(() => null);
+        const message = typeof data?.message === 'string' ? data.message : '';
+        return {
+          ok: Boolean(response.ok && data?.success),
+          status: response.status,
+          message,
+          mode,
         };
+      };
 
-        response = await fetch(CONTACT_API_ENDPOINT, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-          credentials: 'omit',
-          signal: controller.signal,
-        });
-      } else {
+      const submitDirect = async (): Promise<SubmitResult> => {
         const submitData = new FormData();
         submitData.append("access_key", WEB3FORMS_ACCESS_KEY);
         submitData.append("subject", `【Peace Biz】お問い合わせ: ${inquiryLabel}`);
-        submitData.append("name", safeName);
-        submitData.append("email", safeEmail);
-        if (safeCompany) submitData.append("company", safeCompany);
-        if (safePhone) submitData.append("phone", safePhone);
-        submitData.append("inquiry_type", inquiryLabel);
-        if (safeServices.length > 0) {
-          submitData.append("services", safeServices.join(', '));
+        submitData.append("name", payload.name);
+        submitData.append("email", payload.email);
+        if (payload.company) submitData.append("company", payload.company);
+        if (payload.phone) submitData.append("phone", payload.phone);
+        submitData.append("inquiry_type", payload.inquiryType);
+        if (payload.services.length > 0) {
+          submitData.append("services", payload.services.join(', '));
         }
-        submitData.append("message", safeMessage);
+        submitData.append("message", payload.message);
         submitData.append("botcheck", "");
 
-        response = await fetch(WEB3FORMS_ENDPOINT, {
-          method: "POST",
-          body: submitData,
-          signal: controller.signal,
-        });
+        try {
+          const response = await fetch(WEB3FORMS_ENDPOINT, {
+            method: "POST",
+            body: submitData,
+            signal: controller.signal,
+          });
+          return toSubmitResult(response, 'direct');
+        } catch (error) {
+          if (error instanceof DOMException && error.name === 'AbortError') {
+            throw error;
+          }
+          return { ok: false, status: 0, message: 'Network Error', mode: 'direct' };
+        }
+      };
+
+      const submitProxy = async (): Promise<SubmitResult> => {
+        try {
+          const response = await fetch(CONTACT_API_ENDPOINT, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+            credentials: 'omit',
+            signal: controller.signal,
+          });
+          return toSubmitResult(response, 'proxy');
+        } catch (error) {
+          if (error instanceof DOMException && error.name === 'AbortError') {
+            throw error;
+          }
+          return { ok: false, status: 0, message: 'Network Error', mode: 'proxy' };
+        }
+      };
+
+      const submitters: Array<() => Promise<SubmitResult>> = [];
+      if (WEB3FORMS_ACCESS_KEY) {
+        submitters.push(submitDirect);
+      }
+      if (CONTACT_API_ENDPOINT) {
+        submitters.push(submitProxy);
       }
 
-      const data = await response.json().catch(() => null);
-      const errorMessage = typeof data?.message === 'string' ? data.message : '';
-
-      if (!response.ok || !data?.success) {
-        setSubmitError(getSubmitErrorMessage(response.status, errorMessage, submissionMode));
+      if (submitters.length === 0) {
+        setSubmitError('フォーム設定エラーが発生しています。時間をおいて再度お試しください。');
         return;
       }
 
-      if (data.success) {
-        setIsSubmitted(true);
-        window.scrollTo(0, 0);
-      } else {
-        setSubmitError('送信に失敗しました。もう一度お試しください。');
+      let lastFailure: SubmitResult | null = null;
+      for (const submitter of submitters) {
+        const result = await submitter();
+        if (result.ok) {
+          setIsSubmitted(true);
+          window.scrollTo(0, 0);
+          return;
+        }
+        lastFailure = result;
+
+        // Invalid email is a hard validation error and retrying alternate route is unnecessary.
+        if (result.message === 'Invalid email') {
+          break;
+        }
       }
+
+      if (lastFailure) {
+        setSubmitError(getSubmitErrorMessage(lastFailure.status, lastFailure.message, lastFailure.mode));
+        return;
+      }
+
+      setSubmitError('送信に失敗しました。もう一度お試しください。');
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
         setSubmitError('通信がタイムアウトしました。ネットワーク接続を確認してください。');
@@ -255,6 +343,16 @@ const Contact: React.FC = () => {
   };
 
   const showServiceOptions = formData.inquiryType === 'service';
+  const inquiryLabelForFallback = inquiryTypes.find((t) => t.key === formData.inquiryType)?.label || '';
+  const mailtoFallbackHref = buildMailtoHref({
+    inquiryLabel: inquiryLabelForFallback,
+    name: formData.name.trim(),
+    company: formData.company.trim(),
+    email: formData.email.trim(),
+    phone: formData.phone.trim(),
+    services: formData.services,
+    message: formData.message.trim(),
+  });
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
@@ -656,13 +754,21 @@ const Contact: React.FC = () => {
                   </span>
                 </motion.button>
                 {submitError && (
-                  <motion.p
+                  <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 text-red-400 font-medium text-sm text-center"
+                    className="mt-4 text-center"
                   >
-                    {submitError}
-                  </motion.p>
+                    <p className="text-red-400 font-medium text-sm">
+                      {submitError}
+                    </p>
+                    <a
+                      href={mailtoFallbackHref}
+                      className="mt-3 inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2 text-xs font-bold tracking-widest text-white/70 hover:text-white hover:border-white/40 transition-colors"
+                    >
+                      メールアプリで問い合わせる
+                    </a>
+                  </motion.div>
                 )}
               </div>
 
