@@ -27,6 +27,7 @@ type NavConfig = {
   key: string;
   name: string;
   link: string;
+  titleLink?: string;
   groups: NavPreviewGroup[];
 };
 
@@ -108,6 +109,7 @@ const Header: React.FC = () => {
         key: 'top',
         name: 'Top',
         link: '/',
+        titleLink: '/#top-hero',
         groups: [
           {
             label: 'SECTIONS',
@@ -125,6 +127,7 @@ const Header: React.FC = () => {
         key: 'about',
         name: 'About',
         link: '/about',
+        titleLink: '/about#about-hero',
         groups: [
           {
             label: 'SECTIONS',
@@ -141,6 +144,7 @@ const Header: React.FC = () => {
         key: 'service',
         name: 'Service',
         link: '/services',
+        titleLink: '/services#services-hero',
         groups: [
           {
             label: 'CORE BUSINESS',
@@ -189,6 +193,7 @@ const Header: React.FC = () => {
         key: 'works',
         name: 'Works',
         link: '/works',
+        titleLink: '/works#works-hero',
         groups: [
           {
             label: 'SECTIONS',
@@ -202,6 +207,7 @@ const Header: React.FC = () => {
         key: 'news',
         name: 'News',
         link: '/news',
+        titleLink: '/news#news-hero',
         groups: [
           {
             label: 'SECTIONS',
@@ -215,6 +221,7 @@ const Header: React.FC = () => {
         key: 'recruit',
         name: 'Recruit',
         link: '/recruit',
+        titleLink: '/recruit#recruit-hero',
         groups: [
           {
             label: 'SECTIONS',
@@ -231,6 +238,7 @@ const Header: React.FC = () => {
         key: 'contact',
         name: 'Contact',
         link: '/contact',
+        titleLink: '/contact#contact-hero',
         groups: [
           {
             label: 'SECTIONS',
@@ -441,23 +449,31 @@ const Header: React.FC = () => {
                           exit={{ y: '-100%' }}
                           transition={{ delay: 0.15 + index * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                         >
-                          <button
-                            type="button"
-                            onClick={() => setActiveMobileKey((prev) => (prev === item.key ? null : item.key))}
-                            className="w-full flex items-center justify-between gap-4 py-3 border-b border-black/10 hover:border-black/30 transition-all group text-left"
-                          >
-                            <div className="flex items-baseline gap-4 min-w-0">
+                          <div className="w-full flex items-center gap-3 border-b border-black/10 hover:border-black/30 transition-all">
+                            <Link
+                              to={item.titleLink ?? item.link}
+                              onClick={closeAllMenus}
+                              className="min-w-0 flex-1 flex items-baseline gap-4 py-3 group"
+                            >
                               <span className="text-xs font-mono text-black/25 tracking-widest group-hover:text-brand-blue transition-colors w-6">
                                 0{index + 1}
                               </span>
                               <span className="text-3xl font-black tracking-tighter text-black group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-brand-blue group-hover:via-brand-green group-hover:to-brand-orange transition-all">
                                 {item.name.toUpperCase()}
                               </span>
-                            </div>
-                            <ChevronDown
-                              className={`w-5 h-5 text-black/35 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                            />
-                          </button>
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() => setActiveMobileKey((prev) => (prev === item.key ? null : item.key))}
+                              aria-label={`${item.name} submenu toggle`}
+                              aria-expanded={isExpanded}
+                              className="shrink-0 rounded-full border border-black/15 p-2 text-black/45 hover:text-black/70 hover:border-black/35 transition-colors"
+                            >
+                              <ChevronDown
+                                className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                              />
+                            </button>
+                          </div>
                         </motion.div>
 
                         <AnimatePresence initial={false}>
@@ -470,13 +486,6 @@ const Header: React.FC = () => {
                               className="overflow-hidden"
                             >
                               <div className="pl-10 pr-1 py-3 space-y-3">
-                                <Link
-                                  to={item.link}
-                                  onClick={closeAllMenus}
-                                  className="inline-flex items-center text-xs font-bold tracking-[0.2em] text-black/45 hover:text-brand-blue"
-                                >
-                                  PAGE TOP <ArrowRight className="w-3 h-3 ml-1.5" />
-                                </Link>
                                 {item.groups.map((group) => (
                                   <div key={`${item.key}-${group.label}`}>
                                     <p className="text-[11px] font-bold tracking-[0.2em] text-black/35 mb-2.5">

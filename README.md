@@ -32,10 +32,12 @@ GitHub Pages は静的ホスティングのため、フロントエンドに秘�
 - サーバー側: Cloudflare Worker (`workers/contact-proxy`) が受信
 - 秘密情報: `WEB3FORMS_ACCESS_KEY` は Worker Secret として保持（フロントには一切配布しない）
 - 許可ドメイン: Worker 側の `ALLOWED_ORIGINS` で制限
+- フェイルオーバー: フロントは `direct(Web3Forms)` / `proxy(Worker)` を順次試行
 
 フロントの設定:
 
 - 参照キー: `REACT_APP_CONTACT_API_URL`
+- 直接送信用キー: `REACT_APP_WEB3FORMS_ACCESS_KEY`（proxy障害時の自動フォールバック用）
 - ローカル: `.env.production.local` に設定（`.gitignore` 対象）
 - CI/CD: GitHub Repository Secrets の `REACT_APP_CONTACT_API_URL` に設定
 - テンプレート: `.env.production.example`
@@ -55,6 +57,7 @@ npx wrangler deploy
 
 - `ALLOWED_ORIGINS` 例: `https://www.peace-biz.com,https://peace-biz-corporate-site.pages.dev`
 - 公開された Worker URL を `REACT_APP_CONTACT_API_URL` に設定してください。
+- Worker状態確認: `curl -sS https://<worker-domain>/health`
 
 ## デプロイ
 
