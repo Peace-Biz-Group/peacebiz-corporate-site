@@ -31,15 +31,64 @@ const sanitizeServiceList = (services: unknown) => {
     .slice(0, 20);
 };
 
+const normalizeOrigin = (value: string) => value.trim().toLowerCase().replace(/\/+$/, '');
+
+const normalizeAllowedEntry = (entry: string) => {
+  const trimmed = normalizeOrigin(entry);
+  if (!trimmed) return '';
+  if (trimmed.startsWith('*.')) {
+    return `*.${trimmed.slice(2)}`;
+  }
+  if (!trimmed.includes('://')) {
+    return trimmed;
+  }
+  try {
+    return new URL(trimmed).origin.toLowerCase();
+  } catch {
+    return trimmed;
+  }
+};
+
 const parseAllowedOrigins = (raw: string | undefined) =>
   (raw || '')
     .split(',')
-    .map((item) => item.trim())
+    .map((item) => normalizeAllowedEntry(item))
     .filter(Boolean);
+
+const buildCandidateOrigins = (origin: string) => {
+  const normalized = normalizeOrigin(origin);
+  try {
+    const url = new URL(normalized);
+    const host = url.hostname.toLowerCase();
+    const protocol = url.protocol;
+    const candidates = new Set<string>([normalized, host]);
+    if (host.startsWith('www.')) {
+      const noWww = host.slice(4);
+      candidates.add(noWww);
+      candidates.add(`${protocol}//${noWww}`);
+    } else {
+      candidates.add(`www.${host}`);
+      candidates.add(`${protocol}//www.${host}`);
+    }
+    return { normalized, host, candidates };
+  } catch {
+    return { normalized, host: '', candidates: new Set<string>([normalized]) };
+  }
+};
 
 const isAllowedOrigin = (origin: string | null, allowlist: string[]) => {
   if (!origin) return false;
-  return allowlist.includes(origin);
+  if (allowlist.length === 0) return false;
+
+  const { host, candidates } = buildCandidateOrigins(origin);
+
+  return allowlist.some((allowed) => {
+    if (allowed.startsWith('*.')) {
+      const wildcardBase = allowed.slice(2);
+      return host === wildcardBase || host.endsWith(`.${wildcardBase}`);
+    }
+    return candidates.has(allowed);
+  });
 };
 
 const buildCorsHeaders = (origin: string, allowCredentials = false) => ({
@@ -65,15 +114,16 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const allowlist = parseAllowedOrigins(env.ALLOWED_ORIGINS);
     const origin = request.headers.get('Origin');
+    const allowedOrigin = origin && isAllowedOrigin(origin, allowlist) ? normalizeOrigin(origin) : null;
 
     if (request.method === 'OPTIONS') {
-      if (!isAllowedOrigin(origin, allowlist)) {
+      if (!allowedOrigin) {
         return new Response(null, { status: 403 });
       }
       return new Response(null, {
         status: 204,
         headers: {
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
           ...buildCommonHeaders(),
         },
       });
@@ -87,11 +137,14 @@ export default {
       );
     }
 
-    if (!isAllowedOrigin(origin, allowlist)) {
+    if (!allowedOrigin) {
       return json(
         { success: false, message: 'Forbidden' },
         403,
-        buildCommonHeaders()
+        {
+          ...buildCommonHeaders(),
+          ...(origin ? buildCorsHeaders(normalizeOrigin(origin)) : {}),
+        }
       );
     }
 
@@ -101,7 +154,7 @@ export default {
         500,
         {
           ...buildCommonHeaders(),
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
         }
       );
     }
@@ -115,7 +168,7 @@ export default {
         400,
         {
           ...buildCommonHeaders(),
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
         }
       );
     }
@@ -126,7 +179,7 @@ export default {
         200,
         {
           ...buildCommonHeaders(),
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
         }
       );
     }
@@ -145,7 +198,7 @@ export default {
         400,
         {
           ...buildCommonHeaders(),
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
         }
       );
     }
@@ -156,7 +209,7 @@ export default {
         400,
         {
           ...buildCommonHeaders(),
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
         }
       );
     }
@@ -186,7 +239,7 @@ export default {
         502,
         {
           ...buildCommonHeaders(),
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
         }
       );
     }
@@ -204,7 +257,7 @@ export default {
         400,
         {
           ...buildCommonHeaders(),
-          ...buildCorsHeaders(origin as string),
+          ...buildCorsHeaders(allowedOrigin),
         }
       );
     }
@@ -214,9 +267,8 @@ export default {
       200,
       {
         ...buildCommonHeaders(),
-        ...buildCorsHeaders(origin as string),
+        ...buildCorsHeaders(allowedOrigin),
       }
     );
   },
 };
-

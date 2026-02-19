@@ -14,6 +14,26 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const sanitizeField = (value: string, maxLength: number) =>
   value.replace(/\r\n?/g, '\n').trim().slice(0, maxLength);
 
+const getSubmitErrorMessage = (status: number, message: string, mode: 'proxy' | 'direct' | 'none') => {
+  if (mode === 'proxy') {
+    if (status === 403 || message === 'Forbidden') {
+      return 'フォーム送信ドメイン設定エラーです。運営側で許可ドメイン設定を確認してください。';
+    }
+    if (status === 500 || message === 'Server Misconfigured') {
+      return 'フォーム送信サーバーの設定エラーです。時間をおいて再度お試しください。';
+    }
+    if (status === 502 || message === 'Provider request failed') {
+      return '送信サービス側で一時的なエラーが発生しました。時間をおいて再度お試しください。';
+    }
+  }
+
+  if (message === 'Invalid email') {
+    return 'メールアドレスの形式が正しくありません。';
+  }
+
+  return '送信に失敗しました。もう一度お試しください。';
+};
+
 const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const formInitializedAtRef = useRef<number>(Date.now());
@@ -206,13 +226,15 @@ const Contact: React.FC = () => {
         });
       }
 
-      if (!response.ok) {
-        setSubmitError('送信に失敗しました。もう一度お試しください。');
+      const data = await response.json().catch(() => null);
+      const errorMessage = typeof data?.message === 'string' ? data.message : '';
+
+      if (!response.ok || !data?.success) {
+        setSubmitError(getSubmitErrorMessage(response.status, errorMessage, submissionMode));
         return;
       }
-      const data = await response.json().catch(() => null);
 
-      if (data?.success) {
+      if (data.success) {
         setIsSubmitted(true);
         window.scrollTo(0, 0);
       } else {
