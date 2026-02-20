@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/react";
 import { MaskTextReveal } from '../../components/ui/MaskTextReveal';
 import { MagneticButton } from '../../components/ui/MagneticButton';
 import { GlowingEffect } from '../../components/ui/glowing-effect';
+import { assetPaths } from '../../config/assets';
 
 /* ─── Shared animation variant ─── */
 const fadeInUp = {
@@ -24,7 +25,7 @@ const services = [
         title: '業務用空調機器',
         subtitle: 'HVAC & Kitchen',
         desc: '最新の業務用エアコンや厨房機器の入れ替えで、消費電力を抑制し環境効果を最大化。施設全体のエネルギー消費を可視化し、最も効果的な改善ポイントを特定。無駄のない投資で、大きなリターンを生み出します。',
-        img: `${process.env.PUBLIC_URL || ''}/air-conditioner.webp`,
+        img: assetPaths.services.airConditioner,
         highlights: ['業務用エアコン入替', '厨房機器', 'エネルギー可視化'],
     },
     {
@@ -40,7 +41,7 @@ const services = [
         title: '新電力',
         subtitle: 'PPS',
         desc: '新電力への切り替えによる電気料金の見直し。初期費用ゼロで毎月の固定費を削減。お客様の電力使用パターンを詳細に分析し、最適な料金プランをご提案。面倒な手続きはすべて私たちが代行し、スムーズな移行をサポートします。',
-        img: `${process.env.PUBLIC_URL || ''}/new-electricity-retailer.webp`,
+        img: assetPaths.services.newElectricityRetailer,
         highlights: ['新電力切り替え', '初期費用ゼロ', '電力コスト分析'],
     },
 ];
@@ -124,10 +125,13 @@ const EcoSolution: React.FC = () => {
                 {/* Background image (底面) */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={`${process.env.PUBLIC_URL || ''}/eco-solution.webp`}
+                        src={assetPaths.services.ecoSolution}
                         alt=""
+                        width={1920}
+                        height={1080}
                         className="w-full h-full object-cover"
                         loading="eager"
+                        decoding="async"
                     />
                     <div className="absolute inset-0 bg-black/40" />
                 </div>
@@ -326,6 +330,8 @@ const EcoSolution: React.FC = () => {
                             <motion.img
                                 src={svc.img}
                                 alt=""
+                                width={1920}
+                                height={1080}
                                 className="w-full h-full object-cover"
                                 style={{ scale: imgScales[i] }}
                                 loading="lazy"

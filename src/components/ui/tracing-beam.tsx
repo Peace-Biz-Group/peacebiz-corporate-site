@@ -7,7 +7,7 @@ import {
 } from "motion/react";
 import { cn } from "../../utils/cn";
 
-export const TracingBeam = ({
+const TracingBeamEnabled = ({
   children,
   className,
 }: {
@@ -88,4 +88,39 @@ export const TracingBeam = ({
       <div ref={contentRef}>{children}</div>
     </motion.div>
   );
+};
+
+export const TracingBeam = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  const [enabled, setEnabled] = useState(() =>
+    typeof window === "undefined"
+      ? true
+      : window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)").matches
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
+    const update = () => setEnabled(mediaQuery.matches);
+
+    update();
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", update);
+      return () => mediaQuery.removeEventListener("change", update);
+    }
+
+    mediaQuery.addListener(update);
+    return () => mediaQuery.removeListener(update);
+  }, []);
+
+  if (!enabled) {
+    return <div className={cn("relative mx-auto h-full w-full", className)}>{children}</div>;
+  }
+
+  return <TracingBeamEnabled className={className}>{children}</TracingBeamEnabled>;
 };

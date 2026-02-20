@@ -231,7 +231,10 @@ const BentoCard = React.memo(({ work, index, sizeClass }: BentoCardProps) => (
     <img
       src={work.img}
       alt={work.title}
+      width={1600}
+      height={900}
       loading="lazy"
+      decoding="async"
       className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:blur-[3px]"
     />
     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/55 transition-colors duration-500" />

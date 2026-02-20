@@ -35,7 +35,7 @@ const AnimatedFeatureSpotlight = React.forwardRef<HTMLDivElement, AnimatedFeatur
         )}
         {...props}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] items-stretch">
           {/* Left Column: Text Content */}
           <div className="flex flex-col justify-center space-y-5 p-8 md:p-10 text-left items-start">
             <div className="flex items-center space-x-2 text-xs font-semibold tracking-widest uppercase text-muted-foreground animate-in fade-in slide-in-from-top-4 duration-700">
@@ -58,11 +58,13 @@ const AnimatedFeatureSpotlight = React.forwardRef<HTMLDivElement, AnimatedFeatur
           {/* Right Column: Image with diagonal clip */}
           <div
             className="relative w-full min-h-[250px] md:min-h-[320px] animate-in fade-in zoom-in-95 duration-700 delay-200"
-            style={{ clipPath: 'polygon(4% 0, 100% 0, 100% 100%, 0 100%)' }}
+            style={{ clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)' }}
           >
             <img
               src={imageUrl}
               alt={imageAlt}
+              width={1200}
+              height={900}
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"

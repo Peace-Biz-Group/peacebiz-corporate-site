@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-02-20T05:08:21.097Z",
+  "site": {
+    "name": "Peace Biz",
+    "legalName": "株式会社ピース・ビズ",
+    "url": "https://www.peace-biz.com",
+    "language": "ja"
+  },
+  "routes": {
+    "baseRoutes": [
+      "/",
+      "/about",
+      "/company",
+      "/services",
+      "/services/it-solution",
+      "/services/eco-solution",
+      "/services/office-solution",
+      "/works",
+      "/work",
+      "/news",
+      "/contact",
+      "/recruit",
+      "/privacy",
+      "/sitepolicy",
+      "/terms"
+    ],
+    "sitemapRoutes": [
+      "/",
+      "/about",
+      "/company",
+      "/services",
+      "/services/it-solution",
+      "/services/eco-solution",
+      "/services/office-solution",
+      "/works",
+      "/news",
+      "/contact",
+      "/recruit",
+      "/privacy",
+      "/sitepolicy",
+      "/terms",
+      "/news/corporate-site-renewal-2026-02-12",
+      "/news/prime-sign-launch-2025-01-15",
+      "/news/new-graduate-entry-2024-02-01",
+      "/news/hvac-projects-3500-2023-06-01",
+      "/news/app-service-launch-2022-02-01",
+      "/news/website-renewal-2020-09-15",
+      "/news/sendai-office-relocation-2020-07-01",
+      "/news/recruit-open-2020-03-01",
+      "/works/showcase-it-pending-01",
+      "/works/showcase-eco-pending-02",
+      "/works/showcase-office-pending-03",
+      "/works/showcase-it-pending-04",
+      "/works/showcase-eco-pending-05",
+      "/works/showcase-office-pending-06"
+    ],
+    "canonicalUrls": [
+      "https://www.peace-biz.com/",
+      "https://www.peace-biz.com/about",
+      "https://www.peace-biz.com/company",
+      "https://www.peace-biz.com/services",
+      "https://www.peace-biz.com/services/it-solution",
+      "https://www.peace-biz.com/services/eco-solution",
+      "https://www.peace-biz.com/services/office-solution",
+      "https://www.peace-biz.com/works",
+      "https://www.peace-biz.com/news",
+      "https://www.peace-biz.com/contact",
+      "https://www.peace-biz.com/recruit",
+      "https://www.peace-biz.com/privacy",
+      "https://www.peace-biz.com/sitepolicy",
+      "https://www.peace-biz.com/terms",
+      "https://www.peace-biz.com/news/corporate-site-renewal-2026-02-12",
+      "https://www.peace-biz.com/news/prime-sign-launch-2025-01-15",
+      "https://www.peace-biz.com/news/new-graduate-entry-2024-02-01",
+      "https://www.peace-biz.com/news/hvac-projects-3500-2023-06-01",
+      "https://www.peace-biz.com/news/app-service-launch-2022-02-01",
+      "https://www.peace-biz.com/news/website-renewal-2020-09-15",
+      "https://www.peace-biz.com/news/sendai-office-relocation-2020-07-01",
+      "https://www.peace-biz.com/news/recruit-open-2020-03-01",
+      "https://www.peace-biz.com/works/showcase-it-pending-01",
+      "https://www.peace-biz.com/works/showcase-eco-pending-02",
+      "https://www.peace-biz.com/works/showcase-office-pending-03",
+      "https://www.peace-biz.com/works/showcase-it-pending-04",
+      "https://www.peace-biz.com/works/showcase-eco-pending-05",
+      "https://www.peace-biz.com/works/showcase-office-pending-06"
+    ],
+    "count": 28
+  },
+  "content": {
+    "news": {
+      "source": "src/data/content/news.json",
+      "count": 8,
+      "slugs": [
+        "corporate-site-renewal-2026-02-12",
+        "prime-sign-launch-2025-01-15",
+        "new-graduate-entry-2024-02-01",
+        "hvac-projects-3500-2023-06-01",
+        "app-service-launch-2022-02-01",
+        "website-renewal-2020-09-15",
+        "sendai-office-relocation-2020-07-01",
+        "recruit-open-2020-03-01"
+      ]
+    },
+    "works": {
+      "source": "src/data/content/works.json",
+      "count": 6,
+      "slugs": [
+        "showcase-it-pending-01",
+        "showcase-eco-pending-02",
+        "showcase-office-pending-03",
+        "showcase-it-pending-04",
+        "showcase-eco-pending-05",
+        "showcase-office-pending-06"
+      ]
+    }
+  },
+  "publicStructure": {
+    "images": {
+      "brand": "/assets/images/brand",
+      "about": "/assets/images/about",
+      "services": "/assets/images/services",
+      "top": "/assets/images/top",
+      "news": "/assets/images/news",
+      "works": "/assets/images/works"
+    },
+    "videos": "/assets/videos"
+  }
+}

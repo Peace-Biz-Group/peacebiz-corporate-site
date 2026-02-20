@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './case-snapshot-carousel.css';
+import { assetPaths } from '../../config/assets';
 
 interface CaseSlideData {
   quote: string;
@@ -28,8 +29,7 @@ const caseSlides: CaseSlideData[] = [
       '店の空気感が入口で伝わり、スタッフの説明負荷も下がる。採用は「見て分かる」入口ができる。',
     keyResult: '応募導線が強くなる（目安：応募数 +10〜20%）、店頭案内の更新が当日反映、',
     accent: '#006bb6',
-    imageUrl:
-      `${process.env.PUBLIC_URL || ''}/top-ownersvoice-primesign.webp`,
+    imageUrl: assetPaths.top.ownerVoicePrimeSign,
     label: 'サービス業 店舗',
   },
   {
@@ -44,8 +44,7 @@ const caseSlides: CaseSlideData[] = [
       '建物の印象が揃い、募集・案内の反映が早い。認知の取りこぼしが減る。',
     keyResult: '視認性が上がる（目安：問い合わせ +5〜15%）、掲出変更が即日対応',
     accent: '#006bb6',
-    imageUrl:
-      `${process.env.PUBLIC_URL || ''}/top-ownersvoice-ledsignage.webp`,
+    imageUrl: assetPaths.top.ownerVoiceLedSignage,
     label: '不動産 ビル',
   },
   {
@@ -60,8 +59,7 @@ const caseSlides: CaseSlideData[] = [
       '客席の体感ムラが減り、厨房の暑さも抑えやすくなる。ピーク時の不満や突発対応が減って、営業に集中できる。',
     keyResult: '客席の体感ムラを抑える、厨房の暑さ・ピーク負荷に合わせて “効かせ方” まで設計',
     accent: '#00903b',
-    imageUrl:
-      `${process.env.PUBLIC_URL || ''}/top-ownersvoice-aircon.webp`,
+    imageUrl: assetPaths.top.ownerVoiceAircon,
     label: '飲食店 店舗',
   },
   {
@@ -76,8 +74,7 @@ const caseSlides: CaseSlideData[] = [
       '困りごとの初動が速くなり、請求・管理の手間が減る。総務が本来の改善業務に時間を使える。',
     keyResult: '窓口一本化で対応が早い（目安：対応工数 -20〜35%）、調達〜運用が一気通貫',
     accent: '#ea5712',
-    imageUrl:
-      `${process.env.PUBLIC_URL || ''}/top-ownersvoice-officesupply.webp`,
+    imageUrl: assetPaths.top.ownerVoiceOfficeSupply,
     label: '一般企業 オフィス',
   },
 ];
@@ -90,8 +87,13 @@ export default function CaseSnapshotCarousel() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(true);
+  const [isPageVisible, setIsPageVisible] = useState(
+    typeof document === 'undefined' ? true : !document.hidden
+  );
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
@@ -123,7 +125,31 @@ export default function CaseSnapshotCarousel() {
   }, [currentIndex, goToSlide]);
 
   useEffect(() => {
-    if (isPaused) return;
+    const element = wrapperRef.current;
+    if (!element || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting && entry.intersectionRatio > 0.15);
+      },
+      { threshold: [0, 0.15, 0.35] }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsPageVisible(!document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || !isInView || !isPageVisible) return;
 
     progressRef.current = setInterval(() => {
       setProgress((prev) => {
@@ -140,7 +166,7 @@ export default function CaseSnapshotCarousel() {
       if (intervalRef.current) clearInterval(intervalRef.current);
       if (progressRef.current) clearInterval(progressRef.current);
     };
-  }, [currentIndex, isPaused, goNext]);
+  }, [currentIndex, isPaused, isInView, isPageVisible, goNext]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.targetTouches[0].clientX;
@@ -166,6 +192,7 @@ export default function CaseSnapshotCarousel() {
 
   return (
     <div
+      ref={wrapperRef}
       className="carousel-wrapper"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -292,8 +319,11 @@ export default function CaseSnapshotCarousel() {
             <img
               src={slide.imageUrl}
               alt={slide.client}
+              width={1600}
+              height={900}
               className="carousel-image"
               loading="lazy"
+              decoding="async"
             />
             <div
               className="carousel-image-overlay"

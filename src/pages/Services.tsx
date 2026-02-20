@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { MaskTextReveal } from '../components/ui/MaskTextReveal';
 import WebGLServiceSlider from '../components/ui/WebGLServiceSlider';
 import type { ServiceSectionData } from '../components/ui/animated-service-sections';
+import { assetPaths } from '../config/assets';
 
 const Services: React.FC = () => {
   const services: ServiceSectionData[] = [
@@ -20,7 +21,7 @@ const Services: React.FC = () => {
       ],
       color: 'text-brand-blue',
       dotColor: 'bg-brand-blue',
-      img: `${process.env.PUBLIC_URL || ''}/it-solution.webp`,
+      img: assetPaths.services.itSolution,
       path: '/services/it-solution',
     },
     {
@@ -37,7 +38,7 @@ const Services: React.FC = () => {
       ],
       color: 'text-brand-green',
       dotColor: 'bg-brand-green',
-      img: `${process.env.PUBLIC_URL || ''}/eco-solution.webp`,
+      img: assetPaths.services.ecoSolution,
       path: '/services/eco-solution',
     },
     {
@@ -52,7 +53,7 @@ const Services: React.FC = () => {
       ],
       color: 'text-brand-orange',
       dotColor: 'bg-brand-orange',
-      img: `${process.env.PUBLIC_URL || ''}/office-solution.webp`,
+      img: assetPaths.services.officeSolution,
       path: '/services/office-solution',
     },
   ];

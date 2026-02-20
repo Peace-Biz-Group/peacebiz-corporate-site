@@ -23,6 +23,10 @@ const AnimatedBlobImage: React.FC<AnimatedBlobImageProps> = ({
           key={src}
           src={src}
           alt={i === currentIndex ? alt : ""}
+          width={1200}
+          height={1200}
+          loading="lazy"
+          decoding="async"
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-opacity [transition-duration:1500ms] ease-in-out",
             i === currentIndex ? "opacity-100" : "opacity-0",

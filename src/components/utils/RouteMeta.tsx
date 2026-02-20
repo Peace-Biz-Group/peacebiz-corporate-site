@@ -1,6 +1,7 @@
 import { type FC, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { applySeoMeta } from '../../utils/seo';
+import { BASE_URL, SITE_NAME } from '../../config/site';
 
 type RouteMetaConfig = {
   title: string;
@@ -8,9 +9,6 @@ type RouteMetaConfig = {
   canonicalPath: string;
   robots?: string;
 };
-
-const SITE_NAME = 'Peace Biz';
-const BASE_URL = 'https://www.peace-biz.com';
 
 const DEFAULT_META: RouteMetaConfig = {
   title: `${SITE_NAME}｜未来を創り、笑顔を繋ぐ。`,
@@ -28,7 +26,7 @@ const META_BY_PATH: Record<string, RouteMetaConfig> = {
   '/company': {
     title: `会社情報｜${SITE_NAME}`,
     description: '株式会社ピース・ビズの会社情報・理念・拠点情報をご紹介します。',
-    canonicalPath: '/company',
+    canonicalPath: '/about',
   },
   '/services': {
     title: `サービス一覧｜${SITE_NAME}`,
@@ -58,7 +56,7 @@ const META_BY_PATH: Record<string, RouteMetaConfig> = {
   '/work': {
     title: `事例｜${SITE_NAME}`,
     description: '株式会社ピース・ビズの導入事例をご紹介します。',
-    canonicalPath: '/work',
+    canonicalPath: '/works',
   },
   '/news': {
     title: `ニュース｜${SITE_NAME}`,

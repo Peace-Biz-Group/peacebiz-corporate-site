@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/react";
 import { MaskTextReveal } from '../../components/ui/MaskTextReveal';
 import { MagneticButton } from '../../components/ui/MagneticButton';
 import { GlowingEffect } from '../../components/ui/glowing-effect';
+import { assetPaths } from '../../config/assets';
 
 /* ─── Shared animation variant ─── */
 const fadeInUp = {
@@ -24,7 +25,7 @@ const services = [
         title: 'Prime Sign',
         subtitle: '新時代の集客ソリューション',
         desc: '次世代型特殊フィルムと映像技術を組み合わせた、新時代の集客ソリューション。窓面へのフィルム施工、動画の撮影から制作、映像機器への反映までをノンストップで提供します。圧倒的な没入感でブランド体験を向上させ、通行人の視線を確実にキャッチ。',
-        img: `${process.env.PUBLIC_URL || ''}/primesign.webp`,
+        img: assetPaths.services.primeSign,
         highlights: ['次世代型特殊フィルム', 'オリジナル動画制作', 'リモートコンテンツ管理'],
         link: 'https://prime-sign.jp',
     },
@@ -33,7 +34,7 @@ const services = [
         title: 'LED Signage',
         subtitle: '高精細LEDビジョン',
         desc: '屋内外を問わず設置可能な高精細LEDビジョン。視認性の高い大画面映像で、効果的な情報発信とブランディングを実現。商業施設、イベント会場、オフィスエントランスなど、あらゆるシーンに対応。',
-        img: `${process.env.PUBLIC_URL || ''}/ledvision.webp`,
+        img: assetPaths.services.ledVision,
         highlights: ['屋内外対応', '高輝度・高精細', 'カスタムサイズ対応'],
     },
     {
@@ -127,10 +128,13 @@ const ITSolution: React.FC = () => {
                 {/* Background image (底面) */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={`${process.env.PUBLIC_URL || ''}/it-solution.webp`}
+                        src={assetPaths.services.itSolution}
                         alt=""
+                        width={1920}
+                        height={1080}
                         className="w-full h-full object-cover"
                         loading="eager"
+                        decoding="async"
                     />
                     <div className="absolute inset-0 bg-black/40" />
                 </div>
@@ -329,6 +333,8 @@ const ITSolution: React.FC = () => {
                             <motion.img
                                 src={svc.img}
                                 alt=""
+                                width={1920}
+                                height={1080}
                                 className="w-full h-full object-cover"
                                 style={{ scale: imgScales[i] }}
                                 loading="lazy"

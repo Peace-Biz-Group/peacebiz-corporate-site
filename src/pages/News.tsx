@@ -175,7 +175,10 @@ const News: React.FC = () => {
                           <img
                             src={news.img}
                             alt={news.title}
+                            width={1600}
+                            height={900}
                             loading="lazy"
+                            decoding="async"
                             className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80"
                           />
                         </div>

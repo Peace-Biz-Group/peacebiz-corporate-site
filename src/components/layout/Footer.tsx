@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { assetPaths } from '../../config/assets';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -52,8 +53,10 @@ const Footer: React.FC = () => {
           <div className="mb-8 md:mb-0">
             <Link to="/" className="flex items-center gap-3 mb-6">
               <img
-                src={`${process.env.PUBLIC_URL || ''}/logo.png`}
+                src={assetPaths.brand.logo}
                 alt="Peace Biz Logo"
+                width={240}
+                height={64}
                 loading="lazy"
                 decoding="async"
                 className="h-7 md:h-8 w-auto object-contain"

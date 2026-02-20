@@ -22,6 +22,24 @@ npm run build
 
 - `npm start`: ローカル開発サーバー起動
 - `npm run build`: 本番ビルド + 静的ルートファイル生成
+- `npm run sync:ai-context`: `public/llms.txt` / `public/ai-context.json` を最新化
+
+`npm start` / `npm run build` 実行時は、AI参照用メタデータ（`llms.txt` / `ai-context.json`）も自動更新されます。
+また `npm run build` では、旧URL互換のために `build/` 配下へレガシーアセットエイリアスを自動生成します。
+
+## Public アセット構成
+
+`public/` のルート直下は最小限に保ち、用途別に以下へ集約しています。
+
+- `public/assets/images/brand`
+- `public/assets/images/about`
+- `public/assets/images/services`
+- `public/assets/images/top`
+- `public/assets/images/news`
+- `public/assets/images/works`
+- `public/assets/videos`
+
+制作元の未配信用画像は `assets-source/` に配置し、デプロイ対象から分離しています。
 
 ## Contact Form セキュア構成
 

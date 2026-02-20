@@ -9,6 +9,7 @@ import { DraggableCardBody, DraggableCardContainer } from '../components/ui/drag
 import { WobbleCard } from '../components/ui/wobble-card';
 import { Marquee } from '../components/ui/Marquee';
 import { recruitVoiceColumns } from '../data/recruitVoiceData';
+import { assetPaths } from '../config/assets';
 
 const Recruit: React.FC = () => {
   const containerRef = useRef(null);
@@ -109,7 +110,7 @@ const Recruit: React.FC = () => {
             preload="metadata"
             className="w-full h-full object-cover"
           >
-            <source src={`${process.env.PUBLIC_URL || ''}/recruit-background.mp4`} type="video/mp4" />
+            <source src={assetPaths.videos.recruitBackground} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/45" />
         </div>
@@ -228,6 +229,8 @@ const Recruit: React.FC = () => {
                       <img
                         src={v.photo}
                         alt={v.name}
+                        width={40}
+                        height={40}
                         loading="lazy"
                         decoding="async"
                         className="w-10 h-10 rounded-full object-cover flex-shrink-0"
@@ -294,6 +297,8 @@ const Recruit: React.FC = () => {
               <img
                 src={item.image}
                 alt={item.title}
+                width={320}
+                height={320}
                 loading="lazy"
                 decoding="async"
                 className="pointer-events-none relative z-10 h-80 w-80 object-cover rounded-md"

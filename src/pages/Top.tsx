@@ -11,6 +11,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '../components/ui/card
 import { newsData } from '../data/newsData';
 import { topNewsCategoryColorMap } from '../data/topPageData';
 import { MissionSection } from '../components/sections/top/MissionSection';
+import { assetPaths } from '../config/assets';
 
 const latestNews = newsData.slice(0, 3);
 
@@ -37,7 +38,10 @@ const DomainBentoCard: React.FC<{
     <img
       src={imgSrc}
       alt={imgAlt}
+      width={1600}
+      height={900}
       loading="lazy"
+      decoding="async"
       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
     />
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -80,8 +84,17 @@ const Top: React.FC = () => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   useEffect(() => {
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.as = 'image';
+    preloadLink.href = assetPaths.top.heroPoster;
+    preloadLink.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(preloadLink);
+
     const video = heroVideoRef.current;
-    if (!video || !("IntersectionObserver" in window)) return;
+    if (!video || !("IntersectionObserver" in window)) {
+      return () => preloadLink.remove();
+    }
 
     video.pause();
     video.currentTime = 0;
@@ -133,6 +146,7 @@ const Top: React.FC = () => {
       clearTimeout(logoTimer);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       observer.disconnect();
+      preloadLink.remove();
     };
   }, []);
 
@@ -151,12 +165,12 @@ const Top: React.FC = () => {
             loop
             muted
             playsInline
-            preload="auto"
-            poster={`${process.env.PUBLIC_URL || ""}/herosection_background_poster.webp`}
+            preload="metadata"
+            poster={assetPaths.top.heroPoster}
             className="w-full h-full object-cover"
           >
-            <source src={`${process.env.PUBLIC_URL || ""}/herosection_background.webm`} type="video/webm" />
-            <source src={`${process.env.PUBLIC_URL || ""}/herosection_background.mp4`} type="video/mp4" />
+            <source src={assetPaths.videos.topHeroWebm} type="video/webm" />
+            <source src={assetPaths.videos.topHeroMp4} type="video/mp4" />
           </video>
         </motion.div>
 
@@ -173,8 +187,11 @@ const Top: React.FC = () => {
           className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
         >
           <img
-            src={`${process.env.PUBLIC_URL || ""}/peace-biz-logo-en.png`}
+            src={assetPaths.brand.logoEn}
             alt="Peace Biz"
+            width={960}
+            height={240}
+            decoding="async"
             className="w-48 md:w-72 lg:w-96"
           />
         </motion.div>
@@ -332,7 +349,7 @@ const Top: React.FC = () => {
                 <DomainBentoCard
                   title="IT Solution"
                   description="デジタル技術で空間価値を最大化。Prime Sign / LEDサイネージ / クリエイティブ"
-                  imgSrc={`${process.env.PUBLIC_URL || ""}/it-solution.webp`}
+                  imgSrc={assetPaths.services.itSolution}
                   imgAlt="IT Solution"
                   accentColor="text-brand-blue"
                   compact
@@ -342,7 +359,7 @@ const Top: React.FC = () => {
                 <DomainBentoCard
                   title="Eco Solution"
                   description="コスト削減と環境貢献の両立。業務用空調 / 太陽光発電 / 新電力"
-                  imgSrc={`${process.env.PUBLIC_URL || ""}/eco-solution.webp`}
+                  imgSrc={assetPaths.services.ecoSolution}
                   imgAlt="Eco Solution"
                   accentColor="text-brand-green"
                   compact
@@ -352,7 +369,7 @@ const Top: React.FC = () => {
                 <DomainBentoCard
                   title="Office Solution"
                   description="働く人が輝く環境を構築。OA機器 / 通信 / ネットワーク"
-                  imgSrc={`${process.env.PUBLIC_URL || ""}/office-solution.webp`}
+                  imgSrc={assetPaths.services.officeSolution}
                   imgAlt="Office Solution"
                   accentColor="text-brand-orange"
                   compact
@@ -406,7 +423,7 @@ const Top: React.FC = () => {
                 <DomainBentoCard
                   title="Prime Sign"
                   description="デジタルサイネージで空間に新しい体験価値を。情報発信の力を最大化します。"
-                  imgSrc={`${process.env.PUBLIC_URL || ""}/primesign.webp`}
+                  imgSrc={assetPaths.services.primeSign}
                   imgAlt="Prime Sign"
                   featured
                   accentColor="text-brand-blue"
@@ -416,7 +433,7 @@ const Top: React.FC = () => {
                 <DomainBentoCard
                   title="業務用エアコン"
                   description="最新の省エネ技術で、快適な空間環境と大幅なコスト削減を実現します。"
-                  imgSrc={`${process.env.PUBLIC_URL || ""}/air-conditioner.webp`}
+                  imgSrc={assetPaths.services.airConditioner}
                   imgAlt="業務用エアコン"
                   featured
                   accentColor="text-brand-green"
@@ -479,13 +496,16 @@ const Top: React.FC = () => {
                 transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="flex"
               >
-                <Link to={`/news/${news.slug}`} className="w-full block">
-                  <Card className="group flex flex-col cursor-pointer border-black/5 dark:border-white/10 bg-white dark:bg-zinc-900/50 shadow-sm hover:shadow-xl transition-shadow duration-500 overflow-hidden rounded-xl w-full">
+                <Link to={`/news/${news.slug}`} className="w-full h-full block">
+                  <Card className="group flex flex-col cursor-pointer border-black/5 dark:border-white/10 bg-white dark:bg-zinc-900/50 shadow-sm hover:shadow-xl transition-shadow duration-500 overflow-hidden rounded-xl w-full h-full">
                     <div className="aspect-[16/9] w-full overflow-hidden shrink-0">
                       <img
                         src={news.img}
                         alt={news.title}
+                        width={1600}
+                        height={900}
                         loading="lazy"
+                        decoding="async"
                         className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>

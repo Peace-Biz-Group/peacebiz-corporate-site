@@ -32,6 +32,8 @@ export const ParallaxImage: React.FC<ParallaxImageProps> = ({
             <motion.img
                 src={src}
                 alt={alt}
+                width={1600}
+                height={900}
                 style={{ y, scale: 1.1 }} // Scale up slightly to prevent whitespace
                 className={`w-full h-full object-cover absolute inset-0 will-change-transform ${className}`}
                 loading="lazy"

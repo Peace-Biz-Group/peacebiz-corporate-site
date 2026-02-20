@@ -11,8 +11,7 @@ import {
 } from '../data/worksData';
 import { cn } from '../utils/cn';
 import { applySeoMeta } from '../utils/seo';
-
-const BASE_URL = 'https://www.peace-biz.com';
+import { BASE_URL, ORGANIZATION_LOGO_URL, ORGANIZATION_NAME, SITE_NAME } from '../config/site';
 
 const WorkDetail: React.FC = () => {
   const { slug = '' } = useParams();
@@ -21,7 +20,7 @@ const WorkDetail: React.FC = () => {
   useLayoutEffect(() => {
     if (!work) {
       applySeoMeta({
-        title: '事例詳細｜Peace Biz',
+        title: `事例詳細｜${SITE_NAME}`,
         description: '指定された事例は見つかりませんでした。',
         canonicalUrl: `${BASE_URL}/works`,
         robots: 'noindex, nofollow',
@@ -29,7 +28,7 @@ const WorkDetail: React.FC = () => {
       return;
     }
     applySeoMeta({
-      title: `${work.title}｜Peace Biz`,
+      title: `${work.title}｜${SITE_NAME}`,
       description: `${work.client} / ${categoryLabels[work.category]} / ${work.description}`.slice(0, 120),
       canonicalUrl: `${BASE_URL}/works/${work.slug}`,
     });
@@ -45,7 +44,8 @@ const WorkDetail: React.FC = () => {
       image: [work.img],
       creator: {
         '@type': 'Organization',
-        name: '株式会社ピース・ビズ',
+        name: ORGANIZATION_NAME,
+        logo: ORGANIZATION_LOGO_URL,
       },
       url: `${BASE_URL}/works/${work.slug}`,
       dateCreated: work.year,
@@ -56,7 +56,7 @@ const WorkDetail: React.FC = () => {
   if (!work) {
     return (
       <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
-        <section className="container mx-auto px-6 md:px-20 pt-40 pb-24">
+        <section className="container mx-auto px-6 md:px-20 pt-12 pb-24">
           <p className="text-gray-500 mb-4">指定された事例は見つかりませんでした。</p>
           <Link to="/works" className="inline-flex items-center gap-2 text-brand-blue font-bold">
             <ArrowLeft className="w-4 h-4" />
@@ -82,7 +82,7 @@ const WorkDetail: React.FC = () => {
         />
       )}
 
-      <section className="container mx-auto px-6 md:px-20 pt-36 pb-14">
+      <section className="container mx-auto px-6 md:px-20 pt-8 md:pt-10 pb-14">
         <Link
           to="/works"
           className="inline-flex items-center gap-2 text-sm font-bold tracking-widest uppercase text-gray-400 hover:text-black dark:hover:text-white transition-colors mb-8"
@@ -111,7 +111,14 @@ const WorkDetail: React.FC = () => {
 
       <section className="container mx-auto px-6 md:px-20 pb-24">
         <div className="overflow-hidden rounded-2xl border border-black/5 dark:border-white/10 mb-10">
-          <img src={work.img} alt={work.title} className="w-full h-auto object-cover" />
+          <img
+            src={work.img}
+            alt={work.title}
+            width={1600}
+            height={900}
+            decoding="async"
+            className="w-full h-auto object-cover"
+          />
         </div>
 
         <article className="max-w-5xl">

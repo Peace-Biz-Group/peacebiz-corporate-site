@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
+import { assetPaths } from '../../config/assets';
 import {
   Navbar,
   NavBody,
@@ -37,8 +38,8 @@ const PreviewItem: React.FC<{
   compact?: boolean;
 }> = ({ item, onSelect, compact = false }) => {
   const frameClass = compact
-    ? 'rounded-lg border border-white/90 bg-white/92 hover:bg-white backdrop-blur-xl transition-colors p-2.5'
-    : 'rounded-xl border border-white/90 bg-white/94 hover:bg-white backdrop-blur-xl transition-colors p-3';
+    ? 'rounded-lg border border-white/90 bg-white/90 hover:bg-white backdrop-blur-xl transition-colors p-2.5'
+    : 'rounded-xl border border-white/90 bg-white/90 hover:bg-white backdrop-blur-xl transition-colors p-3';
   const imageClass = compact ? 'h-12 w-20' : 'h-16 w-24';
   const titleClass = compact ? 'text-sm' : 'text-sm md:text-base';
 
@@ -49,8 +50,11 @@ const PreviewItem: React.FC<{
           <img
             src={item.image}
             alt={item.title}
+            width={320}
+            height={180}
             className={`${imageClass} shrink-0 rounded-md object-cover border border-black/5`}
             loading="lazy"
+            decoding="async"
           />
           <div className="min-w-0">
             <p className={`font-bold text-black ${titleClass}`}>{item.title}</p>
@@ -95,7 +99,6 @@ const PreviewItem: React.FC<{
 };
 
 const Header: React.FC = () => {
-  const publicUrl = process.env.PUBLIC_URL || '';
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [activeDesktopKey, setActiveDesktopKey] = useState<string | null>(null);
@@ -134,6 +137,7 @@ const Header: React.FC = () => {
             items: [
               { title: 'Overview', description: '会社概要トップへ', to: '/about#about-hero' },
               { title: 'Philosophy', description: '理念セクションへ', to: '/about#about-philosophy' },
+              { title: 'Message', description: '代表者メッセージへ', to: '/about#about-message' },
               { title: 'Company', description: '会社情報へ', to: '/about#about-company' },
               { title: 'History', description: '沿革タイムラインへ', to: '/about#about-history' },
             ],
@@ -153,19 +157,19 @@ const Header: React.FC = () => {
                 title: 'IT Solution',
                 description: 'Prime Sign / LEDサイネージ / クリエイティブ',
                 to: '/services/it-solution',
-                image: `${publicUrl}/it-solution.webp`,
+                image: assetPaths.services.itSolution,
               },
               {
                 title: 'Eco Solution',
                 description: '業務用空調 / 太陽光発電 / 新電力',
                 to: '/services/eco-solution',
-                image: `${publicUrl}/eco-solution.webp`,
+                image: assetPaths.services.ecoSolution,
               },
               {
                 title: 'Office Solution',
                 description: 'OA機器 / 通信 / ネットワーク',
                 to: '/services/office-solution',
-                image: `${publicUrl}/office-solution.webp`,
+                image: assetPaths.services.officeSolution,
               },
             ],
           },
@@ -176,14 +180,14 @@ const Header: React.FC = () => {
                 title: 'Prime Sign',
                 description: 'デジタルサイネージの注力サービス',
                 to: 'https://prime-sign.jp',
-                image: `${publicUrl}/primesign.webp`,
+                image: assetPaths.services.primeSign,
                 external: true,
               },
               {
                 title: '業務用エアコン',
                 description: '省エネ空調ソリューション',
                 to: '/#top-featured',
-                image: `${publicUrl}/air-conditioner.webp`,
+                image: assetPaths.services.airConditioner,
               },
             ],
           },
@@ -249,7 +253,7 @@ const Header: React.FC = () => {
         ],
       },
     ],
-    [publicUrl]
+    []
   );
 
   const serviceItems = [
@@ -569,14 +573,14 @@ const Header: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.5 }}
                 >
-                  <h4 className="text-xs font-bold tracking-[0.3em] text-black/35 uppercase mb-8">Service</h4>
+                  <h4 className="text-xs font-bold tracking-[0.3em] text-black/35 uppercase mb-8">Services</h4>
                   <div className="space-y-4">
                     {serviceItems.map((item, i) => (
                       <Link
                         key={i}
                         to={item.path}
                         onClick={closeAllMenus}
-                        className="block text-lg lg:text-xl font-bold text-black/50 hover:text-brand-blue transition-colors hover:translate-x-2 transform duration-300"
+                        className="block text-lg lg:text-xl font-medium text-black/50 hover:text-brand-blue transition-colors hover:translate-x-2 transform duration-300"
                       >
                         {item.label}
                       </Link>
@@ -584,18 +588,37 @@ const Header: React.FC = () => {
                   </div>
                 </motion.div>
 
-                {/* Company Info */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.5 }}
-                >
-                  <div className="space-y-4 text-sm text-black/30 font-medium">
-                    <p>Peace Biz Inc.</p>
-                    <p>Tokyo - Sendai - Fukuoka</p>
-                    <p>EST. 2008</p>
-                  </div>
-                </motion.div>
+                <div className="space-y-6">
+                  {/* Policy Links */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7, duration: 0.5 }}
+                  >
+                    <div className="flex items-center gap-4 text-xs font-medium tracking-wide text-black/30">
+                      <Link to="/privacy" onClick={closeAllMenus} className="hover:text-black/60 transition-colors">
+                        PRIVACY POLICY
+                      </Link>
+                      <span className="text-black/15">|</span>
+                      <Link to="/sitepolicy" onClick={closeAllMenus} className="hover:text-black/60 transition-colors">
+                        SITE POLICY
+                      </Link>
+                    </div>
+                  </motion.div>
+
+                  {/* Company Info */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8, duration: 0.5 }}
+                  >
+                    <div className="space-y-4 text-sm text-black/30 font-medium">
+                      <p>Peace Biz Inc.</p>
+                      <p>Tokyo - Sendai - Fukuoka</p>
+                      <p>EST. 2008</p>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </motion.div>

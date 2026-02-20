@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/react";
 import { MaskTextReveal } from '../../components/ui/MaskTextReveal';
 import { MagneticButton } from '../../components/ui/MagneticButton';
 import { GlowingEffect } from '../../components/ui/glowing-effect';
+import { assetPaths } from '../../config/assets';
 
 /* ─── Shared animation variant ─── */
 const fadeInUp = {
@@ -32,7 +33,7 @@ const services = [
         title: 'OA Device',
         subtitle: 'OA機器',
         desc: '最新の複合機（コピー機）やビジネスフォンをご提案。業務内容や規模に合わせた最適な機種選定で、ランニングコストの大幅削減に貢献します。リース契約の見直しから、保守・メンテナンスプランの設計まで、トータルサポートを提供。',
-        img: `${process.env.PUBLIC_URL || ''}/office-solution.webp`,
+        img: assetPaths.services.officeSolution,
         highlights: ['複合機リース・販売', 'ビジネスフォン', 'コスト最適化'],
     },
     {
@@ -124,10 +125,13 @@ const OfficeSolution: React.FC = () => {
                 {/* Background image (底面) */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={`${process.env.PUBLIC_URL || ''}/office-solution.webp`}
+                        src={assetPaths.services.officeSolution}
                         alt=""
+                        width={1920}
+                        height={1080}
                         className="w-full h-full object-cover"
                         loading="eager"
+                        decoding="async"
                     />
                     <div className="absolute inset-0 bg-black/40" />
                 </div>
@@ -326,6 +330,8 @@ const OfficeSolution: React.FC = () => {
                             <motion.img
                                 src={svc.img}
                                 alt=""
+                                width={1920}
+                                height={1080}
                                 className="w-full h-full object-cover"
                                 style={{ scale: imgScales[i] }}
                                 loading="lazy"

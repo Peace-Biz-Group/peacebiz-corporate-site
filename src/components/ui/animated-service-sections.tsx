@@ -278,7 +278,15 @@ const AnimatedServiceSections: React.FC<AnimatedServiceSectionsProps> = ({
                 }
               }}
             >
-              <img src={section.img} alt="" className="w-full h-full object-cover" />
+              <img
+                src={section.img}
+                alt=""
+                width={160}
+                height={112}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover"
+              />
               <div
                 className={`absolute inset-0 bg-black transition-opacity duration-700 ${
                   currentIndex !== i ? 'opacity-60' : 'opacity-0'

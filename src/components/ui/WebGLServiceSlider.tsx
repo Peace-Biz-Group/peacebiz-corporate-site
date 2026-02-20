@@ -213,6 +213,7 @@ const WebGLServiceSlider: React.FC<Props> = ({ sections }) => {
           `<span class="wss-title-base">${splitChars(s.titleBase)}</span>`;
         descEl.textContent = s.desc;
         ctaEl.dataset.path = safePath;
+        ctaEl.setAttribute('href', safePath);
 
         serviceListEl.innerHTML = `<div class="wss-service-list">${s.items
           .map((it) => {
@@ -222,7 +223,7 @@ const WebGLServiceSlider: React.FC<Props> = ({ sections }) => {
             if (externalUrl) {
               return `<a class="wss-service-item" href="${escapeHtml(externalUrl)}" target="_blank" rel="noopener noreferrer"><div class="wss-rolling-text"><div class="wss-rolling-inner"><div class="wss-rolling-line"><span class="wss-service-label">${safeLabel}</span></div><div class="wss-rolling-line"><span class="wss-service-label wss-label-hover">${safeHoverLabel}</span></div></div></div><svg class="wss-service-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`;
             }
-            return `<a class="wss-service-item" data-path="${escapeHtml(safePath)}"><div class="wss-rolling-text"><div class="wss-rolling-inner"><div class="wss-rolling-line"><span class="wss-service-label">${safeLabel}</span></div><div class="wss-rolling-line"><span class="wss-service-label wss-label-hover">${safeHoverLabel}</span></div></div></div><svg class="wss-service-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`;
+            return `<a class="wss-service-item" href="${escapeHtml(safePath)}" data-path="${escapeHtml(safePath)}"><div class="wss-rolling-text"><div class="wss-rolling-inner"><div class="wss-rolling-line"><span class="wss-service-label">${safeLabel}</span></div><div class="wss-rolling-line"><span class="wss-service-label wss-label-hover">${safeHoverLabel}</span></div></div></div><svg class="wss-service-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`;
           })
           .join('')}</div>`;
 
@@ -510,7 +511,7 @@ const WebGLServiceSlider: React.FC<Props> = ({ sections }) => {
             <h2 className="wss-title" id="wssTitle" aria-label="Service title" />
             <p className="wss-desc" id="wssDesc" />
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className="wss-cta" id="wssCta" href="#">
+            <a className="wss-cta" id="wssCta" href="/services">
               <span className="wss-cta-text">View Details</span>
               <span className="wss-cta-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

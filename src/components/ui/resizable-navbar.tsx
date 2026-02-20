@@ -8,6 +8,7 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 import { Link } from "react-router-dom";
+import { assetPaths } from "../../config/assets";
 
 import React, { useState } from "react";
 
@@ -241,7 +242,7 @@ export const NavbarLogo = () => {
       className="relative z-20 mr-4 flex flex-shrink-0 flex-row items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img
-        src={`${process.env.PUBLIC_URL || ""}/logo.png`}
+        src={assetPaths.brand.logo}
         alt="logo"
         width={30}
         height={30}
