@@ -39,8 +39,8 @@ export const aboutTimelineData: HorizontalTimelineItem[] = [
     detail: (
       <div className="space-y-2">
         <p>2012/02　仙台支店を開設</p>
-        <p>2012/08　仙台支店を国分町へ移転</p>
-        <p>2020/07　仙台支店を立町へ移転（体制強化）</p>
+        <p>2020/07　仙台支店を宮城県仙台市青葉区立町1-2広瀬通東武ビル5Fに移転</p>
+        <p>2025/12　仙台支店を宮城県仙台市青葉区国分町1-4-9に移転し オープンイノベーションを加速</p>
       </div>
     ),
   },
@@ -101,6 +101,7 @@ export const aboutTimelineData: HorizontalTimelineItem[] = [
     imageFile: 'assets/images/about/philosophy/about-philosophy-speed-2.webp',
     detail: (
       <div className="space-y-2">
+        <p>東北の企業を中心に事業アライアンスを強化</p>
         <p>AIやブラウザベースのソリューションを検討中</p>
       </div>
     ),

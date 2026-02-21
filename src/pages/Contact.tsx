@@ -103,6 +103,7 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [honeypot, setHoneypot] = useState('');
+  const [isPrivacyAgreed, setIsPrivacyAgreed] = useState(false);
 
   const inquiryTypes = [
     { key: 'service', label: 'サービスについて' },
@@ -205,6 +206,10 @@ const Contact: React.FC = () => {
 
       if (!safeName || !safeEmail || !safeMessage || !inquiryLabel) {
         setSubmitError('必須項目を入力してください。');
+        return;
+      }
+      if (!isPrivacyAgreed) {
+        setSubmitError('プライバシーポリシーへの同意が必要です。');
         return;
       }
       if (!EMAIL_PATTERN.test(safeEmail)) {
@@ -394,19 +399,17 @@ const Contact: React.FC = () => {
             お問い合わせありがとうございます。<br />
             内容を確認の上、担当者より2営業日以内にご連絡いたします。
           </p>
-          <motion.button
-            onClick={() => {
-              setIsSubmitted(false);
-              setFormData({ name: '', company: '', email: '', phone: '', inquiryType: '', services: [], message: '' });
-              setHoneypot('');
-              formInitializedAtRef.current = Date.now();
-            }}
-            className="px-8 py-4 bg-white border border-black/10 text-neutral-900 font-bold rounded-full hover:bg-neutral-50 transition-all"
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            フォームに戻る
-          </motion.button>
+            <Link
+              to="/"
+              className="inline-flex px-8 py-4 bg-white border border-black/10 text-neutral-900 font-bold rounded-full hover:bg-neutral-50 transition-all"
+            >
+              Topに戻る
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     );
@@ -727,7 +730,18 @@ const Contact: React.FC = () => {
               {/* Privacy */}
               <div className="flex justify-center">
                 <div className="-ml-2 flex items-center gap-3">
-                  <NeonCheckbox size={24} aria-label="プライバシーポリシーに同意します" />
+                  <NeonCheckbox
+                    size={24}
+                    aria-label="プライバシーポリシーに同意します"
+                    checked={isPrivacyAgreed}
+                    required
+                    onChange={(e) => {
+                      setIsPrivacyAgreed(e.target.checked);
+                      if (submitError) {
+                        setSubmitError('');
+                      }
+                    }}
+                  />
                   <span className="text-sm text-neutral-600">
                     <Link to="/privacy" className="underline decoration-black/30 underline-offset-4 hover:text-brand-blue transition-colors">
                       プライバシーポリシー
@@ -741,8 +755,8 @@ const Contact: React.FC = () => {
               <div className="pt-4">
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full relative group overflow-hidden bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-5 px-6 rounded-full transition-all disabled:opacity-50"
+                  disabled={isSubmitting || !isPrivacyAgreed}
+                  className="w-full relative group overflow-hidden bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-5 px-6 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

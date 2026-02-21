@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button } from "@nextui-org/react";
 import { MaskTextReveal } from '../../components/ui/MaskTextReveal';
 import { MagneticButton } from '../../components/ui/MagneticButton';
 import { GlowingEffect } from '../../components/ui/glowing-effect';
@@ -587,10 +586,11 @@ const ITSolution: React.FC = () => {
                             サイネージ・映像・アプリ——デジタルの力で、あなたのビジネスを次のステージへ。
                         </p>
                         <MagneticButton>
-                            <Link to="/contact">
-                                <Button className="bg-white text-brand-blue font-bold text-base md:text-lg px-10 md:px-14 py-7 md:py-8 rounded-full shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-                                    CONTACT US
-                                </Button>
+                            <Link
+                                to="/contact"
+                                className="inline-flex touch-manipulation items-center justify-center bg-white text-brand-blue font-bold text-base md:text-lg px-10 md:px-14 py-7 md:py-8 rounded-full shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+                            >
+                                CONTACT US
                             </Link>
                         </MagneticButton>
                     </motion.div>

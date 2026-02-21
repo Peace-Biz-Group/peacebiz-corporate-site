@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import { Button } from "@nextui-org/react";
 import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/ui/MagneticButton';
 import { MaskTextReveal } from '../components/ui/MaskTextReveal';
@@ -529,13 +528,14 @@ const Recruit: React.FC = () => {
           あなたの可能性を、ここで試してみませんか？<br />
           まずはカジュアル面談から。
         </p>
-        <Link to="/contact">
-          <MagneticButton>
-            <Button className="bg-white text-black text-xl font-bold px-16 py-8 rounded-full hover:scale-105 transition-transform">
-              応募フォームへ <ArrowRight className="ml-2 w-6 h-6" />
-            </Button>
-          </MagneticButton>
-        </Link>
+        <MagneticButton>
+          <Link
+            to="/contact"
+            className="inline-flex touch-manipulation items-center justify-center bg-white text-black text-xl font-bold px-16 py-8 rounded-full hover:scale-105 transition-transform"
+          >
+            応募フォームへ <ArrowRight className="ml-2 w-6 h-6" />
+          </Link>
+        </MagneticButton>
       </section>
 
     </div>

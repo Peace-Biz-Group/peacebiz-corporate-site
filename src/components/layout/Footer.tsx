@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-20 mb-32">
           <Link
             to="/recruit"
-            className="group relative md:aspect-[3/1] bg-gray-50 dark:bg-white/5 rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 flex flex-col justify-between py-5 px-6 md:p-12 transition-all hover:shadow-2xl md:ml-12 lg:ml-20"
+            className="group relative touch-manipulation md:aspect-[3/1] bg-gray-50 dark:bg-white/5 rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 flex flex-col justify-between py-5 px-6 md:p-12 transition-all hover:shadow-2xl md:ml-12 lg:ml-20"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/0 to-brand-blue/5 group-hover:to-brand-blue/20 transition-all duration-500" />
             <div className="relative z-10">
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
           </Link>
           <Link
             to="/contact"
-            className="group relative md:aspect-[3/1] bg-gray-50 dark:bg-white/5 rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 flex flex-col justify-between py-5 px-6 md:p-12 transition-all hover:shadow-2xl md:mr-12 lg:mr-20"
+            className="group relative touch-manipulation md:aspect-[3/1] bg-gray-50 dark:bg-white/5 rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 flex flex-col justify-between py-5 px-6 md:p-12 transition-all hover:shadow-2xl md:mr-12 lg:mr-20"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/0 to-brand-orange/5 group-hover:to-brand-orange/20 transition-all duration-500" />
             <div className="relative z-10">

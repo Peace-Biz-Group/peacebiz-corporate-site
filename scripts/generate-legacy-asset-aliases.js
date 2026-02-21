@@ -20,6 +20,8 @@ const legacyAliasMap = {
   'tokyo-hq.webp': 'assets/images/about/offices/tokyo-hq.webp',
   'sendai-branch.webp': 'assets/images/about/offices/sendai-branch.webp',
   'fukuoka-branch.webp': 'assets/images/about/offices/fukuoka-branch.webp',
+  'about-message-hero-960.webp': 'assets/images/about/about-message-hero-960.webp',
+  'about-message-hero-1440.webp': 'assets/images/about/about-message-hero-1440.webp',
   'top-ownersvoice-primesign.webp': 'assets/images/top/owners-voice/top-ownersvoice-primesign.webp',
   'top-ownersvoice-ledsignage.webp': 'assets/images/top/owners-voice/top-ownersvoice-ledsignage.webp',
   'top-ownersvoice-aircon.webp': 'assets/images/top/owners-voice/top-ownersvoice-aircon.webp',

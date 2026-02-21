@@ -137,14 +137,16 @@ const About: React.FC = () => {
 
         <div className="flex flex-col md:flex-row items-stretch">
           <div
-            className="w-full md:w-[55%] h-[280px] md:h-[520px] flex-shrink-0"
+            className="w-full md:w-[55%] h-[260px] md:h-[460px] flex-shrink-0"
             style={{ clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0 100%)' }}
           >
             <img
-              src={`${publicUrl}/assets/images/about/carousel/about-image-carousel-1.webp`}
+              src={`${publicUrl}/assets/images/about/about-message-hero-960.webp`}
+              srcSet={`${publicUrl}/assets/images/about/about-message-hero-960.webp 960w, ${publicUrl}/assets/images/about/about-message-hero-1440.webp 1440w`}
+              sizes="(min-width: 768px) 55vw, 100vw"
               alt="ピース・ビズ 代表者挨拶"
-              width={1600}
-              height={900}
+              width={1440}
+              height={806}
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
