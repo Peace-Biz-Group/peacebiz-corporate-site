@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-12T00:00:00.000Z",
+  "generatedAt": "2026-02-20T00:00:00.000Z",
   "site": {
     "name": "Peace Biz",
     "legalName": "株式会社ピース・ビズ",
@@ -38,7 +38,7 @@
       "/privacy",
       "/sitepolicy",
       "/terms",
-      "/news/corporate-site-renewal-2026-02-12",
+      "/news/corporate-site-renewal-2026-02-20",
       "/news/prime-sign-launch-2025-01-15",
       "/news/new-graduate-entry-2024-02-01",
       "/news/hvac-projects-3500-2023-06-01",
@@ -67,7 +67,7 @@
       "https://www.peace-biz.com/privacy",
       "https://www.peace-biz.com/sitepolicy",
       "https://www.peace-biz.com/terms",
-      "https://www.peace-biz.com/news/corporate-site-renewal-2026-02-12",
+      "https://www.peace-biz.com/news/corporate-site-renewal-2026-02-20",
       "https://www.peace-biz.com/news/prime-sign-launch-2025-01-15",
       "https://www.peace-biz.com/news/new-graduate-entry-2024-02-01",
       "https://www.peace-biz.com/news/hvac-projects-3500-2023-06-01",
@@ -99,7 +99,7 @@
       "source": "src/data/content/news.json",
       "count": 8,
       "slugs": [
-        "corporate-site-renewal-2026-02-12",
+        "corporate-site-renewal-2026-02-20",
         "prime-sign-launch-2025-01-15",
         "new-graduate-entry-2024-02-01",
         "hvac-projects-3500-2023-06-01",

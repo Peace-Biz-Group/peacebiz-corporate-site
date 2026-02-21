@@ -1,7 +1,7 @@
 # Peace Biz Inc.
 
 Official website: https://www.peace-biz.com
-Generated at (UTC): 2026-02-12T00:00:00.000Z
+Generated at (UTC): 2026-02-20T00:00:00.000Z
 Primary language: Japanese (ja)
 Organization: 株式会社ピース・ビズ (Peace Biz Inc.)
 
@@ -19,7 +19,7 @@ Organization: 株式会社ピース・ビズ (Peace Biz Inc.)
 - https://www.peace-biz.com/privacy
 - https://www.peace-biz.com/sitepolicy
 - https://www.peace-biz.com/terms
-- https://www.peace-biz.com/news/corporate-site-renewal-2026-02-12
+- https://www.peace-biz.com/news/corporate-site-renewal-2026-02-20
 - https://www.peace-biz.com/news/prime-sign-launch-2025-01-15
 - https://www.peace-biz.com/news/new-graduate-entry-2024-02-01
 - https://www.peace-biz.com/news/hvac-projects-3500-2023-06-01
