@@ -36,7 +36,9 @@
 - Dev: `npm start`
 - Build: `npm run build`
 - AI Context Sync: `npm run sync:ai-context`
+- SEO Artifact Sync: `npm run sync:seo-artifacts`
 - SEO/AI Verify: `npm run verify:seo`
+- Generated Artifact Verify: `npm run verify:generated-artifacts`
 - Test: `npm test`
 - Lint: `TODO(要確認) npm script 未定義`
 - Format: `TODO(要確認) npm script 未定義`
@@ -48,6 +50,7 @@
 - URL・メタ・フォーム・ビルド設定を変更する場合は、必ず「理由」と「影響範囲」を明記する。
 - 既存の未関連変更は原則巻き込まない。
 - ただし依頼者が「全てコミット・プッシュ」と明示した場合は、作業ツリー全体を対象に `git add -A` で一括コミットし、`main` へプッシュする。
+- `src/data/content/news.json` / `src/data/content/works.json` / `src/data/content/static-route-meta.json` を変更したら、コミット前に `npm run sync:seo-artifacts` と `npm run verify:generated-artifacts` を実行する。
 
 ## Quality Bar
 - デザイン: 既存トーン（余白・タイポ・配色・モーション密度）を壊さない。

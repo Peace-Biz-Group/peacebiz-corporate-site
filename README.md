@@ -23,9 +23,13 @@ npm run build
 - `npm start`: ローカル開発サーバー起動
 - `npm run build`: 本番ビルド + 静的ルートファイル生成
 - `npm run sync:ai-context`: `public/llms.txt` / `public/ai-context.json` を最新化
+- `npm run sync:seo-artifacts`: `public/sitemap.xml` / `public/llms.txt` / `public/ai-context.json` を最新化
+- `npm run verify:generated-artifacts`: 生成物3ファイルのコミット漏れを検出
 
 `npm start` / `npm run build` 実行時は、AI参照用メタデータ（`llms.txt` / `ai-context.json`）も自動更新されます。
 また `npm run build` では、旧URL互換のために `build/` 配下へレガシーアセットエイリアスを自動生成します。
+
+`src/data/content/news.json` や `src/data/content/works.json` を更新した場合は、コミット前に `npm run sync:seo-artifacts` と `npm run verify:generated-artifacts` を実行してください。
 
 ## Public アセット構成
 

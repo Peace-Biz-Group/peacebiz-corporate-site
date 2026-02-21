@@ -48,6 +48,8 @@
     "build": "node scripts/generate-ai-context.js && node scripts/generate-sitemap.js && node scripts/verify-seo-ai-consistency.js && react-scripts build && node scripts/generate-static-routes.js && node scripts/generate-legacy-asset-aliases.js",
     "postbuild": "node scripts/run-react-snap.js",
     "sync:ai-context": "node scripts/generate-ai-context.js",
+    "sync:seo-artifacts": "node scripts/generate-ai-context.js && node scripts/generate-sitemap.js",
+    "verify:generated-artifacts": "node scripts/check-generated-artifacts.js",
     "verify:seo": "node scripts/verify-seo-ai-consistency.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
