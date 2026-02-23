@@ -2,7 +2,7 @@
   "name": "peacebiz-corporate-site",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www.peace-biz.com",
+  "homepage": "https://peace-biz.com",
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@nextui-org/react": "^2.6.11",

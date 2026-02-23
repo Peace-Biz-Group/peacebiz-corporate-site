@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { getSitemapRoutes } = require('./route-manifest');
 
-const SITE_URL = 'https://www.peace-biz.com';
+const SITE_URL = 'https://peace-biz.com';
 const OUTPUT_PATH = path.resolve(__dirname, '..', 'public', 'sitemap.xml');
 const NEWS_PATH = path.resolve(__dirname, '..', 'src', 'data', 'content', 'news.json');
 const WORKS_PATH = path.resolve(__dirname, '..', 'src', 'data', 'content', 'works.json');

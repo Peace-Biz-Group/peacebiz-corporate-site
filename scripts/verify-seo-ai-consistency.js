@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { BASE_ROUTES, getSitemapRoutes } = require('./route-manifest');
 
-const SITE_URL = 'https://www.peace-biz.com';
+const SITE_URL = 'https://peace-biz.com';
 const STATIC_ROUTE_META_PATH = path.resolve(__dirname, '..', 'src', 'data', 'content', 'static-route-meta.json');
 const APP_PATH = path.resolve(__dirname, '..', 'src', 'App.tsx');
 const ROUTES_CONFIG_PATH = path.resolve(__dirname, '..', 'src', 'config', 'routes.ts');
@@ -201,8 +201,8 @@ const verify = () => {
   compareSets('llms.txt canonical URLs', unique(expectedCanonicalUrls), unique(llmsCanonicalUrls), failures);
 
   const robots = readText(ROBOTS_PATH);
-  if (!/Sitemap:\s*https:\/\/www\.peace-biz\.com\/sitemap\.xml/i.test(robots)) {
-    failures.push('robots.txt must include sitemap directive for https://www.peace-biz.com/sitemap.xml');
+  if (!/Sitemap:\s*https:\/\/peace-biz\.com\/sitemap\.xml/i.test(robots)) {
+    failures.push('robots.txt must include sitemap directive for https://peace-biz.com/sitemap.xml');
   }
 
   if (failures.length > 0) {
