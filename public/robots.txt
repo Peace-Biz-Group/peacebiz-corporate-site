@@ -2,6 +2,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.peace-biz.com/sitemap.xml
+Sitemap: https://peace-biz.com/sitemap.xml
 # Optional LLM guidance
-# https://www.peace-biz.com/llms.txt
+# https://peace-biz.com/llms.txt

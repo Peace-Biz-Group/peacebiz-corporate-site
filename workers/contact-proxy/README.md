@@ -18,7 +18,7 @@ npx wrangler deploy
 `ALLOWED_ORIGINS` 例:
 
 ```text
-https://www.peace-biz.com,https://peace-biz-corporate-site.pages.dev
+https://peace-biz.com,https://peace-biz-corporate-site.pages.dev
 ```
 
 デプロイ後の Worker URL をフロントの `REACT_APP_CONTACT_API_URL` に設定してください。

@@ -1,7 +1,7 @@
 # Peace Biz Corporate Site
 
 Peace Biz コーポレートサイト（React + TypeScript + CRA）のリポジトリです。  
-GitHub Pages へ自動デプロイし、独自ドメイン `https://www.peace-biz.com` で公開します。
+GitHub Pages へ自動デプロイし、独自ドメイン `https://peace-biz.com` で公開します。
 
 ## Tech Stack
 
@@ -77,7 +77,7 @@ npx wrangler secret put ALLOWED_ORIGINS
 npx wrangler deploy
 ```
 
-- `ALLOWED_ORIGINS` 例: `https://www.peace-biz.com,https://peace-biz-corporate-site.pages.dev`
+- `ALLOWED_ORIGINS` 例: `https://peace-biz.com,https://peace-biz-corporate-site.pages.dev`
 - 公開された Worker URL を `REACT_APP_CONTACT_API_URL` に設定してください。
 - Worker状態確認: `curl -sS https://<worker-domain>/health`
 
@@ -135,8 +135,8 @@ SPA の直接アクセス（例: `/works`）で 404 を防ぐために、以下�
 
 デプロイ後の確認 URL:
 
-- `https://www.peace-biz.com/robots.txt`
-- `https://www.peace-biz.com/sitemap.xml`
+- `https://peace-biz.com/robots.txt`
+- `https://peace-biz.com/sitemap.xml`
 
 ## Favicon / App Icon
 
@@ -144,8 +144,8 @@ SPA の直接アクセス（例: `/works`）で 404 を防ぐために、以下�
 
 ## 独自ドメイン
 
-- `CNAME`: `www.peace-biz.com`
-- `package.json` の `homepage`: `https://www.peace-biz.com`
+- `CNAME`: `peace-biz.com`
+- `package.json` の `homepage`: `https://peace-biz.com`
 
 ## 注意事項
 

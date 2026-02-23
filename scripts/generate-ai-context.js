@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { BASE_ROUTES, getSitemapRoutes } = require('./route-manifest');
 
-const SITE_URL = 'https://www.peace-biz.com';
+const SITE_URL = 'https://peace-biz.com';
 const OUTPUT_DIR = path.resolve(__dirname, '..', 'public');
 const LLM_OUTPUT_PATH = path.join(OUTPUT_DIR, 'llms.txt');
 const JSON_OUTPUT_PATH = path.join(OUTPUT_DIR, 'ai-context.json');
