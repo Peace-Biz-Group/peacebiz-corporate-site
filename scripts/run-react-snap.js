@@ -23,14 +23,17 @@ const execute = async () => {
     ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     : [];
   const puppeteerExecutablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
-  const concurrencyPlan = [isCI ? 2 : 4, 1];
+  const concurrencyPlan = isCI ? [1] : [4, 1];
+  const blockedPorts = new Set();
 
   let lastError = null;
 
   for (let i = 0; i < concurrencyPlan.length; i += 1) {
     const concurrency = concurrencyPlan[i];
+    const candidatePortsForAttempt = portCandidates.filter((port) => !blockedPorts.has(port));
+    const portsToTry = candidatePortsForAttempt.length > 0 ? candidatePortsForAttempt : portCandidates;
 
-    for (const port of portCandidates) {
+    for (const port of portsToTry) {
       removeSnapEntryIfExists();
 
       try {
@@ -50,11 +53,14 @@ const execute = async () => {
         lastError = error;
 
         if (error && error.code === 'EADDRINUSE') {
+          blockedPorts.add(port);
           console.warn(
             `react-snap failed (port=${port}, concurrency=${concurrency}) due to EADDRINUSE. Trying next port.`
           );
           continue;
         }
+
+        blockedPorts.add(port);
 
         if (i < concurrencyPlan.length - 1) {
           console.warn(
